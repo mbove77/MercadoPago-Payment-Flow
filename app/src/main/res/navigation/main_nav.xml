@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/amounFragment">
+
+    <fragment
+        android:id="@+id/amounFragment"
+        android:name="com.bove.martin.pluspagos.presentation.fragments.AmountFragment"
+        android:label="fragment_amoun"
+        tools:layout="@layout/fragment_amoun" >
+        <action
+            android:id="@+id/action_amounFragment_to_paymentMethodsFr"
+            app:destination="@id/paymentMethodsFr"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentMethodsFr"
+        android:name="com.bove.martin.pluspagos.presentation.fragments.PaymentMethodsFr"
+        android:label="fragment_payment_methods"
+        tools:layout="@layout/fragment_payment_methods" >
+        <action
+            android:id="@+id/action_paymentMethodsFr_to_bankListFr"
+            app:destination="@id/bankListFr"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:popUpTo="@id/bankListFr" />
+    </fragment>
+    <fragment
+        android:id="@+id/bankListFr"
+        android:name="com.bove.martin.pluspagos.presentation.fragments.BankListFr"
+        android:label="BankListFr" >
+        <action
+            android:id="@+id/action_bankListFr_to_installmentsListFr"
+            app:destination="@id/installmentsListFr"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:popUpTo="@id/installmentsListFr" />
+    </fragment>
+    <fragment
+        android:id="@+id/installmentsListFr"
+        android:name="com.bove.martin.pluspagos.presentation.fragments.InstallmentsListFr"
+        android:label="InstallmentsListFr" >
+        <action
+            android:id="@+id/action_installmentsListFr_to_paymentMethodsFr"
+            app:destination="@id/paymentMethodsFr"
+            app:popUpTo="@id/paymentMethodsFr"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>
