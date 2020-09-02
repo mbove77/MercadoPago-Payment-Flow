@@ -51,7 +51,7 @@ class AmountFragment : Fragment() {
             binding.edAmount.error = getString(R.string.amount_empty_validation)
             validationResult = false
         } else if (binding.edAmount.getNumericValue()!! > Constants.MAX_ALLOW_ENTRY) {
-            binding.edAmount.error = getString(R.string.amount_max_amount_validation, Constants.MAX_ALLOW_ENTRY.toString())
+            binding.edAmount.error = getString(R.string.amount_max_amount_validation, Constants.MAX_ALLOW_ENTRY.toInt().toString())
             validationResult = false
         }
 
