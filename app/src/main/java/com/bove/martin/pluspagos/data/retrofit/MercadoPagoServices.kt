@@ -7,10 +7,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-/**
- * Created by Martín Bove on 23-Jul-20.
- * E-mail: mbove77@gmail.com
- */
 interface MercadoPagoServices {
     @GET("payment_methods")
     suspend fun paymentMethods(): Response<List<Payment>>

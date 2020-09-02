@@ -10,12 +10,7 @@ import com.bove.martin.pluspagos.domain.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 
-/**
- * Created by Martín Bove on 28-Aug-20.
- * E-mail: mbove77@gmail.com
- */
 class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewModel() {
 
     private val _paymentsMethods = MutableLiveData<List<Payment>>()
@@ -55,13 +50,26 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
         mpRepo.userInstallmentSelection = null
     }
 
-    fun getPaimentsMethods() {
+    fun getPaymentsMethods() {
         viewModelScope.launch(Dispatchers.IO) {
             val response = mpRepo.getPaymentsMethods()
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    _paymentsMethods.value = response.body()
+                    if (!response.body().isNullOrEmpty()) {
+
+                        // Filter the list for remove not active elements, and out of price range.
+                        val filterList: ArrayList<Payment> = ArrayList()
+                        for (payment in response.body()!!) {
+                            if (payment.status == "active") {
+                                if (getUserAmount()!! >= payment.minAllowedAmount && getUserAmount()!! <= payment.maxAllowedAmount ) {
+                                    filterList.add(payment)
+                                }
+                            }
+                        }
+                        _paymentsMethods.value = filterList
+                    }
+
                 }
             } else {
                 Log.e("Retrofit", "Error in payments methods request.")
@@ -85,12 +93,11 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
 
     fun getInstallments(id: String, amount:Float, issuerId:String?) {
         viewModelScope.launch(Dispatchers.IO) {
-            lateinit var response: Response<List<InstallmentOption>>
 
-            if (issuerId.isNullOrEmpty()) {
-                response = mpRepo.getInstallmentsOptions(id, amount)
+            val response= if (issuerId.isNullOrEmpty()) {
+                mpRepo.getInstallmentsOptions(id, amount)
             } else {
-                response = mpRepo.getInstallmentsOptions(id, amount, issuerId)
+                mpRepo.getInstallmentsOptions(id, amount, issuerId)
             }
 
             if (response.isSuccessful) {

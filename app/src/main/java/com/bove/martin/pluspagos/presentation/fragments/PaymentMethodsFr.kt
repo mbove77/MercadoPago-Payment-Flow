@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +17,8 @@ import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.PaymentsAdapters
 import org.koin.android.ext.android.inject
 
+
+// TODO add accreditation time to recyclerView.
 class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
     private val viewModel: MainActivityViewModel by inject()
     private lateinit var binding: FragmentPaymentMethodsBinding
@@ -38,10 +39,14 @@ class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
 
         (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.payment_fragment_tittle)
 
-        if(paymentList.isEmpty())
-            viewModel.getPaimentsMethods()
+        // In this way we avoid recreating the list when the user goes back,
+        // We could also implement a swipe to refresh to update the list.
+        if(paymentList.isEmpty()) {
+            viewModel.getPaymentsMethods()
+            binding.dataIsloaded = false
+        }
+
         paymentsAdapters = PaymentsAdapters(paymentList, this)
-        binding.dataIsloaded = false
 
         binding.paymentsRecycler.apply {
             layoutManager = LinearLayoutManager(context)
@@ -49,7 +54,7 @@ class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
             adapter = paymentsAdapters
         }
 
-        viewModel.paymentsMethods.observe(viewLifecycleOwner, Observer {
+        viewModel.paymentsMethods.observe(viewLifecycleOwner, {
             paymentList = it
             paymentsAdapters.setData(paymentList)
             binding.dataIsloaded = true

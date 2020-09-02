@@ -1,15 +1,12 @@
 package com.bove.martin.pluspagos.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,7 +29,6 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentBankListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -54,12 +50,13 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
             adapter = banksAdapters
         }
 
-        viewModel.cardIssuers.observe(viewLifecycleOwner, Observer {
+        viewModel.cardIssuers.observe(viewLifecycleOwner, {
             if (it.size > 1) {
                 banksList = it
                 banksAdapters.setData(banksList)
                 binding.dataIsloaded = true
             } else {
+                // If the list is empty we go to the next fragment, removing this from the stack to ignore it if it goes back.
                 viewModel.setUserCardIssuer(null)
                 val navBuilder: NavOptions.Builder = NavOptions.Builder()
                 val navOptions: NavOptions = navBuilder.setPopUpTo(R.id.bankListFr, true).build();
@@ -71,6 +68,5 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
     override fun onItemClick(cardIssuer: CardIssuer, posicion: Int) {
         viewModel.setUserCardIssuer(cardIssuer)
         binding.root.findNavController().navigate(R.id.action_bankListFr_to_installmentsListFr)
-        Log.i("User", "onItemClick: ${cardIssuer.name}")
     }
 }

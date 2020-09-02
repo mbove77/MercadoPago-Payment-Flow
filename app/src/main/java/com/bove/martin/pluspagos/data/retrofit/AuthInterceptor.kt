@@ -1,20 +1,15 @@
 package com.bove.martin.pluspagos.data.retrofit
 
-import com.bove.martin.pluspagos.Constantes
+import com.bove.martin.pluspagos.presentation.utils.Constants
 import okhttp3.Interceptor
 import okhttp3.Response
 
-
-/**
- * Created by Martín Bove on 22-Jul-20.
- * E-mail: mbove77@gmail.com
- */
-class AuthIntercector : Interceptor {
+class AuthInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val urlWithParams = chain.request().url
             .newBuilder()
-            .addQueryParameter("public_key", Constantes.API_KEY)
+            .addQueryParameter("public_key", Constants.API_KEY)
             .build()
 
         var newRequest = chain.request()

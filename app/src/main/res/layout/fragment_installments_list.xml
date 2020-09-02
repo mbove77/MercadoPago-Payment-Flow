@@ -41,19 +41,36 @@
             app:layout_constraintVertical_bias="0.20" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/installmentsRecycler"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
             android:visibility="@{!dataIsloaded}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTittle"
-            tools:listitem="@layout/installment_item" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewTittle">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                app:cardCornerRadius="@dimen/card_corners">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/installmentsRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/installment_item" />
+            </androidx.cardview.widget.CardView>
+        </ScrollView>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

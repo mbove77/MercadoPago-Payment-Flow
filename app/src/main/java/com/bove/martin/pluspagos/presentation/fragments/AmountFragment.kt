@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.databinding.FragmentAmounBinding
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
+import com.bove.martin.pluspagos.presentation.utils.Constants
 import com.bove.martin.pluspagos.presentation.utils.hideKeyboard
 import org.koin.android.ext.android.inject
 
@@ -32,19 +33,28 @@ class AmountFragment : Fragment() {
 
         (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.amount_fragment_tittle)
 
-
         binding.buttonPayment.setOnClickListener {
             if(validateAmount()) {
                 it.hideKeyboard()
                 viewModel.setUserAmount(binding.edAmount.getNumericValue()!!)
                 binding.root.findNavController().navigate(R.id.action_amounFragment_to_paymentMethodsFr)
-            } else {
-                binding.edAmount.error = getString(R.string.amount_validation)
             }
         }
+
     }
 
+    // Here we can omit the max amount validation and show the empty list message in the next fragment.
     fun validateAmount():Boolean {
-        return !binding.edAmount.text.isNullOrEmpty()
+        var validationResult = true;
+
+        if (binding.edAmount.text.isNullOrEmpty()) {
+            binding.edAmount.error = getString(R.string.amount_empty_validation)
+            validationResult = false
+        } else if (binding.edAmount.getNumericValue()!! > Constants.MAX_ALLOW_ENTRY) {
+            binding.edAmount.error = getString(R.string.amount_max_amount_validation, Constants.MAX_ALLOW_ENTRY.toString())
+            validationResult = false
+        }
+
+        return validationResult
     }
 }

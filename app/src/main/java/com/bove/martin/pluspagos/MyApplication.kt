@@ -8,17 +8,13 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
-/**
- * Created by Martín Bove on 29-Aug-20.
- * E-mail: mbove77@gmail.com
- */
 class MyApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
 
         startKoin {
-            androidLogger(Level.NONE)
+            androidLogger(Level.NONE) //FIXME Here is an open bug, but it is only with the logger https://github.com/InsertKoinIO/koin/issues/847
             androidContext(this@MyApplication)
             modules(listOf(retrofitModule, viewModelModule))
         }

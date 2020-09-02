@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +16,6 @@ import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.InstallmentsAdapters
 import org.koin.android.ext.android.inject
 
-
 class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener {
     private val viewModel: MainActivityViewModel by inject()
     private lateinit var binding: FragmentInstallmentsListBinding
@@ -25,13 +23,10 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
     private lateinit var installmentsAdapters: InstallmentsAdapters
     private var payerCostList: List<PayerCost> = ArrayList()
 
-    private var cardIssuerId: String? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentInstallmentsListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -41,10 +36,11 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
 
         (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.installments_fragment_tittle)
 
-        val userAmount: Float = viewModel.getUserAmount()!!.toFloat()
-        val paymentMethodId: String = viewModel.getUserPaymentSelection()!!.id
-        cardIssuerId = viewModel.getUserCardIssuer()?.id
+        val userAmount = viewModel.getUserAmount()!!.toFloat()
+        val paymentMethodId = viewModel.getUserPaymentSelection()!!.id
+        val cardIssuerId = viewModel.getUserCardIssuer()?.id
 
+        // We call one implementation or another depending on whether the cardIssuerId is null or not.
         viewModel.getInstallments(paymentMethodId, userAmount, cardIssuerId)
 
         installmentsAdapters = InstallmentsAdapters(payerCostList, this)
@@ -56,8 +52,8 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
             adapter = installmentsAdapters
         }
 
-        viewModel.installmentsOptions.observe(viewLifecycleOwner, Observer {
-            // TODO Prever comportamiento si viene mas de 1 elemento InstallmentOption.
+        viewModel.installmentsOptions.observe(viewLifecycleOwner, {
+            // TODO Consider behavior if there is more than 1 Installment Option item.
             payerCostList = it[0].payerCosts
             installmentsAdapters.setData(payerCostList)
             binding.dataIsloaded = true

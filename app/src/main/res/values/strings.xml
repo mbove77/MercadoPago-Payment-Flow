@@ -1,23 +1,27 @@
 <resources>
     <string name="app_name">PlusPagos</string>
 
-    <string name="amount_fragment_tittle">Amount Selection</string>
-    <string name="amount_tittle">Select your Amount</string>
-    <string name="amount_hint">type an amount…</string>
-    <string name="amount_next_button">Payment methods</string>
-    <string name="amount_validation">Please fill the amount field for continue.</string>
+    <string name="amount_fragment_tittle">Selección de monto</string>
+    <string name="amount_tittle">Seleccione su importe.</string>
+    <string name="amount_empty_validation">Por favor complete el campo para continuar.</string>
+    <string name="amount_max_amount_validation">El monto máximo es de $ %s</string>
 
-    <string name="payment_fragment_tittle">Payment Method</string>
-    <string name="payment_tittle">Select your Payment Methods</string>
+    <string name="payment_fragment_tittle">Formas de pago</string>
+    <string name="payment_tittle">Seleccione su métodos de pago.</string>
 
-    <string name="bank_fragment_tittle">Bank Selection</string>
-    <string name="bank_tittle">Select your Bank</string>
+    <string name="bank_fragment_tittle">Selección de banco</string>
+    <string name="bank_tittle">Seleccione su banco.</string>
 
-    <string name="installments_fragment_tittle">Installments Options</string>
-    <string name="installments_tittle">Select your installment option</string>
+    <string name="installments_fragment_tittle">Opciones de cuotas</string>
+    <string name="installments_tittle">Seleccione su opción de cuotas.</string>
 
-    <string name="success_fragment_tittle">Review your Options</string>
-    <string name="success_tittle">Finish the payment</string>
+    <string name="success_fragment_tittle">Revisa tu selección</string>
+    <string name="success_tittle">Terminá el pago.</string>
+    <string name="success_amount_label">Monto:</string>
+    <string name="success_payment_label">Forma de pago:</string>
+    <string name="success_bank_label">Banco:</string>
+    <string name="success_installments_label">Cuotas:</string>
+    <string name="success_button_label">confirmar pago</string>
 
     <string name="currency_symbol">$ %s</string>
 </resources>

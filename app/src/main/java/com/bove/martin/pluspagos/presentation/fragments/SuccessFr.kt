@@ -20,7 +20,6 @@ class SuccessFr : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentSuccessBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,12 +30,10 @@ class SuccessFr : Fragment() {
 
         binding.viewModel = viewModel
 
-        binding.button.setOnClickListener {
+        binding.buttonConfirm.setOnClickListener {
             viewModel.clearUserSelections()
             binding.root.findNavController().navigate(R.id.action_successFr_to_amounFragment)
         }
     }
-
-
 
 }

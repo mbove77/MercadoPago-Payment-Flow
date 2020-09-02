@@ -7,11 +7,7 @@ import com.bove.martin.pluspagos.domain.model.PayerCost
 import com.bove.martin.pluspagos.domain.model.Payment
 import retrofit2.Response
 
-/**
- * Created by Martín Bove on 28-Aug-20.
- * E-mail: mbove77@gmail.com
- */
-class MercadoPagoRepository(val mercadoPagoServices: MercadoPagoServices) {
+class MercadoPagoRepository(private val mercadoPagoServices: MercadoPagoServices) {
     var userAmountSelection: Double? = null
     var userPaymentSelection: Payment? = null
     var userCardIssuerSelection: CardIssuer? = null

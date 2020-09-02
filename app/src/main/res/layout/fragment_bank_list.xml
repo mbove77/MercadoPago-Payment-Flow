@@ -40,34 +40,36 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewTittle"
             app:layout_constraintVertical_bias="0.20" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
-            android:background="@android:color/white"
             android:visibility="@{!dataIsloaded}"
-            app:cardCornerRadius="@dimen/card_corners"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTittle">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/banksRecycler"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/bank_item" />
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                app:cardCornerRadius="@dimen/card_corners">
 
-        </androidx.cardview.widget.CardView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/banksRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/bank_item" />
+
+            </androidx.cardview.widget.CardView>
+
+        </ScrollView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

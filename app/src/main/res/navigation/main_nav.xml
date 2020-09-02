@@ -37,7 +37,8 @@
     <fragment
         android:id="@+id/bankListFr"
         android:name="com.bove.martin.pluspagos.presentation.fragments.BankListFr"
-        android:label="BankListFr" >
+        android:label="BankListFr"
+        tools:layout="@layout/fragment_bank_list">
         <action
             android:id="@+id/action_bankListFr_to_installmentsListFr"
             app:destination="@id/installmentsListFr"
@@ -50,7 +51,8 @@
     <fragment
         android:id="@+id/installmentsListFr"
         android:name="com.bove.martin.pluspagos.presentation.fragments.InstallmentsListFr"
-        android:label="InstallmentsListFr" >
+        android:label="InstallmentsListFr"
+        tools:layout="@layout/fragment_installments_list">
         <action
             android:id="@+id/action_installmentsListFr_to_paymentMethodsFr"
             app:destination="@id/paymentMethodsFr"
@@ -72,7 +74,8 @@
     <fragment
         android:id="@+id/successFr"
         android:name="com.bove.martin.pluspagos.presentation.fragments.SuccessFr"
-        android:label="SuccessFr" >
+        android:label="SuccessFr"
+        tools:layout="@layout/fragment_success">
         <action
             android:id="@+id/action_successFr_to_amounFragment"
             app:destination="@id/amounFragment"
