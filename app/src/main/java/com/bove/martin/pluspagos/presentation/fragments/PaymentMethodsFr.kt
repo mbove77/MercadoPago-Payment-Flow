@@ -18,8 +18,6 @@ import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.PaymentsAdapters
 import org.koin.android.ext.android.inject
 
-//todo evitar cargar el listado nuevamente caundo se vuelve atras.
-
 class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
     private val viewModel: MainActivityViewModel by inject()
     private lateinit var binding: FragmentPaymentMethodsBinding
@@ -51,7 +49,7 @@ class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
             adapter = paymentsAdapters
         }
 
-        viewModel.paimentsMethods.observe(viewLifecycleOwner, Observer {
+        viewModel.paymentsMethods.observe(viewLifecycleOwner, Observer {
             paymentList = it
             paymentsAdapters.setData(paymentList)
             binding.dataIsloaded = true

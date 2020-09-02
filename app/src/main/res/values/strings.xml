@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">PlusPagos</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="amount_fragment_tittle">Amount Selection</string>
     <string name="amount_tittle">Select your Amount</string>
@@ -16,5 +14,10 @@
     <string name="bank_tittle">Select your Bank</string>
 
     <string name="installments_fragment_tittle">Installments Options</string>
-    <string name="installments_tittle">Select your installment payment option</string>
+    <string name="installments_tittle">Select your installment option</string>
+
+    <string name="success_fragment_tittle">Review your Options</string>
+    <string name="success_tittle">Finish the payment</string>
+
+    <string name="currency_symbol">$ %s</string>
 </resources>

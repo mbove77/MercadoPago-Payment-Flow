@@ -54,8 +54,33 @@
         <action
             android:id="@+id/action_installmentsListFr_to_paymentMethodsFr"
             app:destination="@id/paymentMethodsFr"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left"
             app:popUpTo="@id/paymentMethodsFr"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_installmentsListFr_to_successFr"
+            app:destination="@id/successFr"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:popUpTo="@id/successFr" />
+    </fragment>
+    <fragment
+        android:id="@+id/successFr"
+        android:name="com.bove.martin.pluspagos.presentation.fragments.SuccessFr"
+        android:label="SuccessFr" >
+        <action
+            android:id="@+id/action_successFr_to_amounFragment"
+            app:destination="@id/amounFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left"
+            app:popUpTo="@id/amounFragment" />
     </fragment>
 
 </navigation>

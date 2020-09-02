@@ -6,15 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bove.martin.pluspagos.data.MercadoPagoRepository
-import com.bove.martin.pluspagos.domain.model.CardIssuer
-import com.bove.martin.pluspagos.domain.model.InstallmentOption
-import com.bove.martin.pluspagos.domain.model.Issuer
-import com.bove.martin.pluspagos.domain.model.Payment
+import com.bove.martin.pluspagos.domain.model.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.java.KoinJavaComponent.get
 import retrofit2.Response
 
 /**
@@ -23,8 +18,8 @@ import retrofit2.Response
  */
 class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewModel() {
 
-    private val _paimentsMethods = MutableLiveData<List<Payment>>()
-    val paimentsMethods: LiveData<List<Payment>> get() = _paimentsMethods
+    private val _paymentsMethods = MutableLiveData<List<Payment>>()
+    val paymentsMethods: LiveData<List<Payment>> get() = _paymentsMethods
 
     private val _cardIssuers = MutableLiveData<List<CardIssuer>>()
     val cardIssuers: LiveData<List<CardIssuer>> get() = _cardIssuers
@@ -33,23 +28,32 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
     val installmentsOptions: LiveData<List<InstallmentOption>> get() = _installmentsOptions
 
 
+    fun getUserAmount() = mpRepo.userAmountSelection
     fun setUserAmount(amount: Double) {
         mpRepo.userAmountSelection = amount
     }
 
-    fun getUserAmount() = mpRepo.userAmountSelection
-
+    fun getUserPaymentSelection() = mpRepo.userPaymentSelection
     fun setUserPaymentSelection(payment : Payment) {
         mpRepo.userPaymentSelection = payment
     }
 
-    fun getUserPaymentSelection() = mpRepo.userPaymentSelection
-
+    fun getUserCardIssuer() = mpRepo.userCardIssuerSelection
     fun setUserCardIssuer(cardIssuer: CardIssuer?) {
         mpRepo.userCardIssuerSelection = cardIssuer
     }
 
-    fun gerUserCardIssuer() = mpRepo.userCardIssuerSelection
+    fun getUserInstallmentSelection() = mpRepo.userInstallmentSelection
+    fun setUserInstallmentSelection(payerCost: PayerCost) {
+        mpRepo.userInstallmentSelection = payerCost
+    }
+
+    fun clearUserSelections() {
+        mpRepo.userAmountSelection = null
+        mpRepo.userPaymentSelection = null
+        mpRepo.userCardIssuerSelection = null
+        mpRepo.userInstallmentSelection = null
+    }
 
     fun getPaimentsMethods() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -57,7 +61,7 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    _paimentsMethods.value = response.body()
+                    _paymentsMethods.value = response.body()
                 }
             } else {
                 Log.e("Retrofit", "Error in payments methods request.")

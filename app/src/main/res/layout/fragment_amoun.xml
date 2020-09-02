@@ -11,6 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
         android:background="@color/greyBackGround"
         tools:context=".presentation.fragments.AmountFragment">
 
@@ -20,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
+            android:fontFamily="@font/amiko"
             android:text="@string/amount_tittle"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,9 +68,12 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:drawableTint="@android:color/white"
                     android:layout_marginBottom="8dp"
-                    android:text="@string/amount_next_button"
                     android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_right_24"
+                    android:text="@string/amount_next_button"
+                    android:textColor="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

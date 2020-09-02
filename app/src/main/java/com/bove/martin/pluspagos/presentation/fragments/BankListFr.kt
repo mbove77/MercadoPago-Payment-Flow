@@ -20,7 +20,6 @@ import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.BanksAdapters
 import org.koin.android.ext.android.inject
 
-// todo contenplar caso de que no tenga banco
 class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
     private val viewModel: MainActivityViewModel by inject()
     private lateinit var binding: FragmentBankListBinding
@@ -46,7 +45,6 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
         val cardIssuerId: String? = viewModel.getUserPaymentSelection()?.id
         cardIssuerId?.let { viewModel.getCardIssuers(it) }
 
-        viewModel.getPaimentsMethods()
         banksAdapters = BanksAdapters(banksList, this)
         binding.dataIsloaded = false
 

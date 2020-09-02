@@ -1,9 +1,6 @@
 package com.bove.martin.pluspagos.presentation.fragments
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +35,7 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
         binding = FragmentInstallmentsListBinding.inflate(inflater, container, false)
         return binding.root
     }
-    //todo manejar la vuelta atras.
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -46,7 +43,7 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
 
         val userAmount: Float = viewModel.getUserAmount()!!.toFloat()
         val paymentMethodId: String = viewModel.getUserPaymentSelection()!!.id
-        cardIssuerId = viewModel.gerUserCardIssuer()?.id
+        cardIssuerId = viewModel.getUserCardIssuer()?.id
 
         viewModel.getInstallments(paymentMethodId, userAmount, cardIssuerId)
 
@@ -69,7 +66,8 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
     }
 
     override fun onItemClick(payerCost: PayerCost, posicion: Int) {
-        Log.i("User", "onItemClick: ${payerCost.recommendedMessage}")
+        viewModel.setUserInstallmentSelection(payerCost)
+        binding.root.findNavController().navigate(R.id.action_installmentsListFr_to_successFr)
     }
 
 }
