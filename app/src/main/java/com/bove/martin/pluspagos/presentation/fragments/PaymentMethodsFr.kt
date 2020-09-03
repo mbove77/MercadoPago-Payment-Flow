@@ -18,7 +18,6 @@ import com.bove.martin.pluspagos.presentation.adapters.PaymentsAdapters
 import org.koin.android.ext.android.inject
 
 
-// TODO add accreditation time to recyclerView.
 class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
     private val viewModel: MainActivityViewModel by inject()
     private lateinit var binding: FragmentPaymentMethodsBinding
