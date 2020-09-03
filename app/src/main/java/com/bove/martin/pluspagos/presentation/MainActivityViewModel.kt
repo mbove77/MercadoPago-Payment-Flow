@@ -6,10 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bove.martin.pluspagos.data.MercadoPagoRepository
-import com.bove.martin.pluspagos.domain.model.*
+import com.bove.martin.pluspagos.domain.model.CardIssuer
+import com.bove.martin.pluspagos.domain.model.InstallmentOption
+import com.bove.martin.pluspagos.domain.model.PayerCost
+import com.bove.martin.pluspagos.domain.model.Payment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.stream.Collectors
+
 
 class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewModel() {
 
@@ -29,7 +34,7 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
     }
 
     fun getUserPaymentSelection() = mpRepo.userPaymentSelection
-    fun setUserPaymentSelection(payment : Payment) {
+    fun setUserPaymentSelection(payment: Payment) {
         mpRepo.userPaymentSelection = payment
     }
 
@@ -58,18 +63,19 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
                 withContext(Dispatchers.Main) {
                     if (!response.body().isNullOrEmpty()) {
 
-                        // Filter the list for remove not active elements, and out of price range.
-                        val filterList: ArrayList<Payment> = ArrayList()
-                        for (payment in response.body()!!) {
-                            if (payment.status == "active") {
-                                if (getUserAmount()!! >= payment.minAllowedAmount && getUserAmount()!! <= payment.maxAllowedAmount ) {
-                                    filterList.add(payment)
-                                }
-                            }
-                        }
-                        _paymentsMethods.value = filterList
-                    }
+                        // Filter the list for remove not active elements and out of price range.
+                        val tempList = response.body()!!
 
+                        val activeItems =
+                            tempList.stream().filter {p -> p.status == "active" }
+                                .collect(Collectors.toList())
+
+                        val inRangeItems =
+                            activeItems.stream().filter {p -> (getUserAmount()!! >= p.minAllowedAmount && getUserAmount()!! <= p.maxAllowedAmount) }
+                                .collect(Collectors.toList())
+
+                        _paymentsMethods.value = inRangeItems
+                    }
                 }
             } else {
                 Log.e("Retrofit", "Error in payments methods request.")
@@ -77,7 +83,7 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
         }
     }
 
-    fun getCardIssuers(id:String) {
+    fun getCardIssuers(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val response = mpRepo.getCardIssuers(id)
 
@@ -91,7 +97,7 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
         }
     }
 
-    fun getInstallments(id: String, amount:Float, issuerId:String?) {
+    fun getInstallments(id: String, amount: Float, issuerId: String?) {
         viewModelScope.launch(Dispatchers.IO) {
 
             val response= if (issuerId.isNullOrEmpty()) {
