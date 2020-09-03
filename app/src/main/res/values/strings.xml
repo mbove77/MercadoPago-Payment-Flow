@@ -24,4 +24,8 @@
     <string name="success_button_label">confirmar pago</string>
 
     <string name="currency_symbol">$ %s</string>
+
+    <string name="time_instant">Instantáneo</string>
+    <string name="time_hours">%s Horas</string>
+    <string name="time_minutes">%s Minutos</string>
 </resources>
