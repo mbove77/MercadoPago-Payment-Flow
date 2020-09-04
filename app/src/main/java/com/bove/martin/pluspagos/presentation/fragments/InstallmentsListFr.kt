@@ -14,10 +14,10 @@ import com.bove.martin.pluspagos.databinding.FragmentInstallmentsListBinding
 import com.bove.martin.pluspagos.domain.model.PayerCost
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.InstallmentsAdapters
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener {
-    private val viewModel: MainActivityViewModel by inject()
+    private val viewModel: MainActivityViewModel by viewModel()
     private lateinit var binding: FragmentInstallmentsListBinding
 
     private lateinit var installmentsAdapters: InstallmentsAdapters

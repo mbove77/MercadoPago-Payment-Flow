@@ -40,7 +40,7 @@ android {
 dependencies {
     def retrofitVersion = '2.9.0'
     def okHttpVersion = '4.8.1'
-    def koin_version= '2.1.6'
+    def koin_version= '2.2.0-alpha-1'
     def lottieVersion= '3.4.2'
 
     implementation fileTree(dir: "libs", include: ["*.jar"])

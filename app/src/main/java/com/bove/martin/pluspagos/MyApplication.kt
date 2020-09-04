@@ -14,7 +14,7 @@ class MyApplication: Application() {
         super.onCreate()
 
         startKoin {
-            androidLogger(Level.NONE) //FIXME Here is an open bug, but it is only with the logger https://github.com/InsertKoinIO/koin/issues/847
+            androidLogger(Level.INFO)
             androidContext(this@MyApplication)
             modules(listOf(retrofitModule, viewModelModule))
         }

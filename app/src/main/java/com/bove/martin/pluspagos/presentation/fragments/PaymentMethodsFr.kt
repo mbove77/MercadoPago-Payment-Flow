@@ -15,11 +15,11 @@ import com.bove.martin.pluspagos.databinding.FragmentPaymentMethodsBinding
 import com.bove.martin.pluspagos.domain.model.Payment
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.PaymentsAdapters
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
-    private val viewModel: MainActivityViewModel by inject()
+    private val viewModel: MainActivityViewModel by viewModel()
     private lateinit var binding: FragmentPaymentMethodsBinding
     private lateinit var paymentsAdapters: PaymentsAdapters
     private var paymentList: List<Payment> = ArrayList()

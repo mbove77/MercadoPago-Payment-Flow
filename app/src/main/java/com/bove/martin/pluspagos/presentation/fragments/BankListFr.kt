@@ -15,10 +15,10 @@ import com.bove.martin.pluspagos.databinding.FragmentBankListBinding
 import com.bove.martin.pluspagos.domain.model.CardIssuer
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.BanksAdapters
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
-    private val viewModel: MainActivityViewModel by inject()
+    private val viewModel: MainActivityViewModel by viewModel()
     private lateinit var binding: FragmentBankListBinding
 
     private lateinit var banksAdapters: BanksAdapters
