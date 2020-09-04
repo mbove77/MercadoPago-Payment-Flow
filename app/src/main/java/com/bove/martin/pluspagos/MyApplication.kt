@@ -14,7 +14,7 @@ class MyApplication: Application() {
         super.onCreate()
 
         startKoin {
-            androidLogger(Level.INFO)
+            androidLogger(Level.DEBUG)
             androidContext(this@MyApplication)
             modules(listOf(retrofitModule, viewModelModule))
         }

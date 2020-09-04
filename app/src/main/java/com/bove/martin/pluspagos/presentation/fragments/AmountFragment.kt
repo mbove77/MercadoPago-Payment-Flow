@@ -12,11 +12,12 @@ import com.bove.martin.pluspagos.databinding.FragmentAmounBinding
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.utils.Constants
 import com.bove.martin.pluspagos.presentation.utils.hideKeyboard
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+
 
 class AmountFragment : Fragment() {
 
-    private val viewModel: MainActivityViewModel by viewModel()
+    private val viewModel: MainActivityViewModel by sharedViewModel()
     private lateinit var binding: FragmentAmounBinding
 
     override fun onCreateView(

@@ -10,11 +10,11 @@ import androidx.navigation.findNavController
 import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.databinding.FragmentSuccessBinding
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class SuccessFr : Fragment() {
-    private val viewModel: MainActivityViewModel by viewModel()
+    private val viewModel: MainActivityViewModel by sharedViewModel()
     private lateinit var binding: FragmentSuccessBinding
 
     override fun onCreateView(

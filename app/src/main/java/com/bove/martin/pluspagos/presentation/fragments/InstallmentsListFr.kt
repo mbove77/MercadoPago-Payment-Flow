@@ -14,10 +14,10 @@ import com.bove.martin.pluspagos.databinding.FragmentInstallmentsListBinding
 import com.bove.martin.pluspagos.domain.model.PayerCost
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.InstallmentsAdapters
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener {
-    private val viewModel: MainActivityViewModel by viewModel()
+    private val viewModel: MainActivityViewModel by sharedViewModel()
     private lateinit var binding: FragmentInstallmentsListBinding
 
     private lateinit var installmentsAdapters: InstallmentsAdapters
@@ -54,9 +54,9 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
 
         viewModel.installmentsOptions.observe(viewLifecycleOwner, {
             // TODO Consider behavior if there is more than 1 Installment Option item.
+            binding.dataIsloaded = true
             payerCostList = it[0].payerCosts
             installmentsAdapters.setData(payerCostList)
-            binding.dataIsloaded = true
         })
 
     }

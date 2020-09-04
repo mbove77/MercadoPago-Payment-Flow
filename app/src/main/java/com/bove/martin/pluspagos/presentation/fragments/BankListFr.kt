@@ -15,15 +15,14 @@ import com.bove.martin.pluspagos.databinding.FragmentBankListBinding
 import com.bove.martin.pluspagos.domain.model.CardIssuer
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.BanksAdapters
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+
 
 class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
-    private val viewModel: MainActivityViewModel by viewModel()
+    private val viewModel: MainActivityViewModel by sharedViewModel()
     private lateinit var binding: FragmentBankListBinding
-
     private lateinit var banksAdapters: BanksAdapters
     private var banksList: List<CardIssuer> = ArrayList()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +37,8 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
 
         (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.bank_fragment_tittle)
 
-        val cardIssuerId: String? = viewModel.getUserPaymentSelection()?.id
-        cardIssuerId?.let { viewModel.getCardIssuers(it) }
+        val cardIssuerId: String = viewModel.getUserPaymentSelection()!!.id
+        viewModel.getCardIssuers(cardIssuerId)
 
         banksAdapters = BanksAdapters(banksList, this)
         binding.dataIsloaded = false
@@ -57,7 +56,6 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
                 binding.dataIsloaded = true
             } else {
                 // If the list is empty we go to the next fragment, removing this from the stack to ignore it if it goes back.
-                viewModel.setUserCardIssuer(null)
                 val navBuilder: NavOptions.Builder = NavOptions.Builder()
                 val navOptions: NavOptions = navBuilder.setPopUpTo(R.id.bankListFr, true).build();
                 binding.root.findNavController().navigate(R.id.action_bankListFr_to_installmentsListFr, null, navOptions)

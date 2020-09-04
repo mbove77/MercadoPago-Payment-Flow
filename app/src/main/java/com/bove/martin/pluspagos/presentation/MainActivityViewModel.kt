@@ -10,6 +10,7 @@ import com.bove.martin.pluspagos.domain.model.CardIssuer
 import com.bove.martin.pluspagos.domain.model.InstallmentOption
 import com.bove.martin.pluspagos.domain.model.PayerCost
 import com.bove.martin.pluspagos.domain.model.Payment
+import com.bove.martin.pluspagos.presentation.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -21,7 +22,7 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
     private val _paymentsMethods = MutableLiveData<List<Payment>>()
     val paymentsMethods: LiveData<List<Payment>> get() = _paymentsMethods
 
-    private val _cardIssuers = MutableLiveData<List<CardIssuer>>()
+    private val _cardIssuers = SingleLiveEvent<List<CardIssuer>>()
     val cardIssuers: LiveData<List<CardIssuer>> get() = _cardIssuers
 
     private val _installmentsOptions = MutableLiveData<List<InstallmentOption>>()

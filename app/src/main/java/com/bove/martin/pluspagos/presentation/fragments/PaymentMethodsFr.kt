@@ -15,11 +15,11 @@ import com.bove.martin.pluspagos.databinding.FragmentPaymentMethodsBinding
 import com.bove.martin.pluspagos.domain.model.Payment
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.PaymentsAdapters
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
-    private val viewModel: MainActivityViewModel by viewModel()
+    private val viewModel: MainActivityViewModel by sharedViewModel()
     private lateinit var binding: FragmentPaymentMethodsBinding
     private lateinit var paymentsAdapters: PaymentsAdapters
     private var paymentList: List<Payment> = ArrayList()
@@ -61,7 +61,6 @@ class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
     }
 
     override fun onItemClick(payment: Payment, posicion: Int) {
-        Log.i("User", "payment: ${payment.id}")
         viewModel.setUserPaymentSelection(payment)
         binding.root.findNavController().navigate(R.id.action_paymentMethodsFr_to_bankListFr)
     }
