@@ -10,9 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:clipChildren="false"
-        android:background="@color/greyBackGround"
         tools:context=".presentation.fragments.AmountFragment">
 
         <TextView
@@ -27,13 +26,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:cardCornerRadius="@dimen/card_corners"
+            android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,10 +43,6 @@
                 android:orientation="vertical">
 
                 <com.cottacush.android.currencyedittext.CurrencyEditText
-                    app:currencySymbol="$"
-                    app:useCurrencySymbolAsHint="true"
-                    app:localeTag="es-AR"
-                    android:inputType="numberDecimal"
                     android:id="@+id/edAmount"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -56,10 +50,14 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:ems="10"
+                    android:inputType="numberDecimal"
                     android:textSize="18sp"
+                    app:currencySymbol="$"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:localeTag="es-AR"
+                    app:useCurrencySymbolAsHint="true" />
 
                 <Button
                     android:id="@+id/buttonPayment"
@@ -68,10 +66,10 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:drawableTint="@android:color/white"
                     android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/colorPrimary"
                     android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_right_24"
+                    android:drawableTint="@android:color/white"
                     android:text="@string/payment_fragment_tittle"
                     android:textColor="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -81,7 +79,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

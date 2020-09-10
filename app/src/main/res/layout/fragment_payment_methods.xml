@@ -41,34 +41,37 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewTittle"
             app:layout_constraintVertical_bias="0.20" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="24dp"
-            android:background="@android:color/white"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="68dp"
             android:visibility="@{!dataIsloaded}"
-            app:cardCornerRadius="@dimen/card_corners"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTittle">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/paymentsRecycler"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/payment_item" />
+                android:layout_height="wrap_content"
+                android:background="@android:color/white">
 
-        </androidx.cardview.widget.CardView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/paymentsRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"
+                    tools:listitem="@layout/payment_item" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </ScrollView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

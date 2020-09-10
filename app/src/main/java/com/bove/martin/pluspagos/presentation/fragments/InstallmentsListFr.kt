@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.databinding.FragmentInstallmentsListBinding
 import com.bove.martin.pluspagos.domain.model.PayerCost
+import com.bove.martin.pluspagos.presentation.MainActivity
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.InstallmentsAdapters
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -57,6 +58,7 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
             binding.dataIsloaded = true
             payerCostList = it[0].payerCosts
             installmentsAdapters.setData(payerCostList)
+            if (!(activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet()
         })
 
     }

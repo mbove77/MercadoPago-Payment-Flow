@@ -28,4 +28,5 @@
     <string name="time_instant">Instantáneo</string>
     <string name="time_hours">%s Horas</string>
     <string name="time_minutes">%s Minutos</string>
+    <string name="pay_label">Pagás:</string>
 </resources>

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.databinding.FragmentBankListBinding
 import com.bove.martin.pluspagos.domain.model.CardIssuer
+import com.bove.martin.pluspagos.presentation.MainActivity
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.BanksAdapters
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -54,8 +55,9 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
                 banksList = it
                 banksAdapters.setData(banksList)
                 binding.dataIsloaded = true
+                if (!(activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet()
             } else {
-                // If the list is empty we go to the next fragment, removing this from the stack to ignore it if it goes back.
+                // If the list is empty we go to the next fragment, removing this from the stack to ignore it if user goes back.
                 val navBuilder: NavOptions.Builder = NavOptions.Builder()
                 val navOptions: NavOptions = navBuilder.setPopUpTo(R.id.bankListFr, true).build();
                 binding.root.findNavController().navigate(R.id.action_bankListFr_to_installmentsListFr, null, navOptions)

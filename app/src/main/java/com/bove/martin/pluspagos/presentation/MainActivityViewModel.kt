@@ -28,15 +28,22 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
     private val _installmentsOptions = MutableLiveData<List<InstallmentOption>>()
     val installmentsOptions: LiveData<List<InstallmentOption>> get() = _installmentsOptions
 
+    private val _userAmount = MutableLiveData<String>("")
+    val userAmount: LiveData<String> get() = _userAmount
+
+    private val _userPayMethod = MutableLiveData<String>("")
+    val userPayMethod: LiveData<String> get() = _userPayMethod
 
     fun getUserAmount() = mpRepo.userAmountSelection
     fun setUserAmount(amount: Double) {
         mpRepo.userAmountSelection = amount
+        _userAmount.value = amount.toInt().toString()
     }
 
     fun getUserPaymentSelection() = mpRepo.userPaymentSelection
     fun setUserPaymentSelection(payment: Payment) {
         mpRepo.userPaymentSelection = payment
+        _userPayMethod.value = "Medio: " + payment.name
     }
 
     fun getUserCardIssuer() = mpRepo.userCardIssuerSelection
@@ -54,6 +61,8 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
         mpRepo.userPaymentSelection = null
         mpRepo.userCardIssuerSelection = null
         mpRepo.userInstallmentSelection = null
+        _userPayMethod.value = ""
+        _userAmount.value = ""
     }
 
     fun getPaymentsMethods() {

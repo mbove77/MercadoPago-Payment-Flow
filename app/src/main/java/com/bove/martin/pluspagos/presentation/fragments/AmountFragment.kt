@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.databinding.FragmentAmounBinding
+import com.bove.martin.pluspagos.presentation.MainActivity
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.utils.Constants
 import com.bove.martin.pluspagos.presentation.utils.hideKeyboard
@@ -33,6 +34,7 @@ class AmountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.amount_fragment_tittle)
+        if ((activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).hideBottomSheet()
 
         binding.buttonPayment.setOnClickListener {
             if(validateAmount()) {

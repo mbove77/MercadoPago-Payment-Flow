@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.databinding.FragmentSuccessBinding
+import com.bove.martin.pluspagos.presentation.MainActivity
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -28,6 +29,7 @@ class SuccessFr : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.success_fragment_tittle)
+        if ((activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).hideBottomSheet()
 
         binding.viewModel = viewModel
 

@@ -43,30 +43,30 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="68dp"
             android:visibility="@{!dataIsloaded}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTittle">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                app:cardCornerRadius="@dimen/card_corners">
+                android:background="@android:color/white">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/banksRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:scrollbars="vertical"
                     tools:listitem="@layout/bank_item" />
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
         </ScrollView>
 

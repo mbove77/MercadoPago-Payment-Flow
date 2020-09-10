@@ -1,18 +1,21 @@
 package com.bove.martin.pluspagos.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.databinding.FragmentPaymentMethodsBinding
+
 import com.bove.martin.pluspagos.domain.model.Payment
+import com.bove.martin.pluspagos.presentation.MainActivity
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.PaymentsAdapters
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -37,7 +40,6 @@ class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.payment_fragment_tittle)
-
         // In this way we avoid recreating the list when the user goes back,
         // We could also implement a swipe to refresh to update the list.
         if(paymentList.isEmpty()) {
@@ -57,6 +59,7 @@ class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
             paymentList = it
             paymentsAdapters.setData(paymentList)
             binding.dataIsloaded = true
+            if (!(activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet()
         })
     }
 
