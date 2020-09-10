@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bove.martin.pluspagos.data.MemoryRepository
 import com.bove.martin.pluspagos.data.MercadoPagoRepository
 import com.bove.martin.pluspagos.domain.model.CardIssuer
 import com.bove.martin.pluspagos.domain.model.InstallmentOption
@@ -17,7 +18,7 @@ import kotlinx.coroutines.withContext
 import java.util.stream.Collectors
 
 
-class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewModel() {
+class MainActivityViewModel(private val mercadoPagoRepository: MercadoPagoRepository, private val memoryRepository: MemoryRepository): ViewModel() {
 
     private val _paymentsMethods = MutableLiveData<List<Payment>>()
     val paymentsMethods: LiveData<List<Payment>> get() = _paymentsMethods
@@ -34,40 +35,41 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
     private val _userPayMethod = MutableLiveData<String>("")
     val userPayMethod: LiveData<String> get() = _userPayMethod
 
-    fun getUserAmount() = mpRepo.userAmountSelection
+    fun getUserAmount() = memoryRepository.userAmount
     fun setUserAmount(amount: Double) {
-        mpRepo.userAmountSelection = amount
+        memoryRepository.userAmount = amount
         _userAmount.value = amount.toInt().toString()
     }
 
-    fun getUserPaymentSelection() = mpRepo.userPaymentSelection
+    fun getUserPaymentSelection() = memoryRepository.userPaymentSelection
     fun setUserPaymentSelection(payment: Payment) {
-        mpRepo.userPaymentSelection = payment
+        memoryRepository.userPaymentSelection = payment
         _userPayMethod.value = "Medio: " + payment.name
     }
 
-    fun getUserCardIssuer() = mpRepo.userCardIssuerSelection
+    fun getUserCardIssuer() = memoryRepository.userBankSelection
     fun setUserCardIssuer(cardIssuer: CardIssuer?) {
-        mpRepo.userCardIssuerSelection = cardIssuer
+        memoryRepository.userBankSelection = cardIssuer
     }
 
-    fun getUserInstallmentSelection() = mpRepo.userInstallmentSelection
+    fun getUserInstallmentSelection() = memoryRepository.userInstallmentSelection
     fun setUserInstallmentSelection(payerCost: PayerCost) {
-        mpRepo.userInstallmentSelection = payerCost
+        memoryRepository.userInstallmentSelection = payerCost
     }
 
     fun clearUserSelections() {
-        mpRepo.userAmountSelection = null
-        mpRepo.userPaymentSelection = null
-        mpRepo.userCardIssuerSelection = null
-        mpRepo.userInstallmentSelection = null
+        memoryRepository.userAmount = null
+        memoryRepository.userPayMethod = null
+        memoryRepository.userPaymentSelection = null
+        memoryRepository.userBankSelection = null
+        memoryRepository.userInstallmentSelection = null
         _userPayMethod.value = ""
         _userAmount.value = ""
     }
 
     fun getPaymentsMethods() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = mpRepo.getPaymentsMethods()
+            val response = mercadoPagoRepository.getPaymentsMethods()
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
@@ -95,7 +97,7 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
 
     fun getCardIssuers(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = mpRepo.getCardIssuers(id)
+            val response = mercadoPagoRepository.getCardIssuers(id)
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
@@ -111,9 +113,9 @@ class MainActivityViewModel(private val mpRepo: MercadoPagoRepository): ViewMode
         viewModelScope.launch(Dispatchers.IO) {
 
             val response= if (issuerId.isNullOrEmpty()) {
-                mpRepo.getInstallmentsOptions(id, amount)
+                mercadoPagoRepository.getInstallmentsOptions(id, amount)
             } else {
-                mpRepo.getInstallmentsOptions(id, amount, issuerId)
+                mercadoPagoRepository.getInstallmentsOptions(id, amount, issuerId)
             }
 
             if (response.isSuccessful) {

@@ -2,5 +2,6 @@
 <resources>
     <dimen name="card_corners">4dp</dimen>
     <dimen name="top_margin">32dp</dimen>
+    <dimen name="bottom_margin">48dp</dimen>
 </resources>
     

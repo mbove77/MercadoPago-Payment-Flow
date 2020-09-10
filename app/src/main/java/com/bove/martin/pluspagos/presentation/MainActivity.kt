@@ -6,6 +6,7 @@ import android.util.TypedValue
 import android.view.View
 import android.view.animation.TranslateAnimation
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -26,6 +27,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //TODO add support to dark theme
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -49,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         val animate = TranslateAnimation(0f, 0f, bottomSheet.height.toFloat(), 0f)
         animate.duration = 500
         animate.fillAfter = true
-        animate.startOffset = 500
+        animate.startOffset = 200
         bottomSheet.startAnimation(animate)
         bottomSheetIsVisible = true
     }
@@ -58,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         val animate = TranslateAnimation(0f, 0f, 0f, bottomSheet.height.toFloat())
         animate.duration = 500
         animate.fillAfter = true
-        animate.startOffset = 500
+        animate.startOffset = 200
         bottomSheet.startAnimation(animate)
         bottomSheetIsVisible = false
     }
