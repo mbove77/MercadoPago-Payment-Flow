@@ -82,3 +82,4 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 app/release/output-metadata.json
+app/src/main/java/com/bove/martin/pluspagos/presentation/utils/ApiKey.kt
