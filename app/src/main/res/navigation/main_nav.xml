@@ -31,16 +31,14 @@
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
-            app:popExitAnim="@anim/to_right"
-            app:popUpTo="@id/bankListFr" />
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_paymentMethodsFr_to_installmentsListFr"
             app:destination="@id/installmentsListFr"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
-            app:popExitAnim="@anim/to_right"
-            app:popUpTo="@id/installmentsListFr" />
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/bankListFr"
@@ -53,8 +51,7 @@
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
-            app:popExitAnim="@anim/to_right"
-            app:popUpTo="@id/installmentsListFr" />
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/installmentsListFr"
@@ -62,22 +59,19 @@
         android:label="InstallmentsListFr"
         tools:layout="@layout/fragment_installments_list">
         <action
-            android:id="@+id/action_installmentsListFr_to_paymentMethodsFr"
-            app:destination="@id/paymentMethodsFr"
-            app:enterAnim="@anim/from_left"
-            app:exitAnim="@anim/to_right"
-            app:popEnterAnim="@anim/from_right"
-            app:popExitAnim="@anim/to_left"
-            app:popUpTo="@id/paymentMethodsFr"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_installmentsListFr_to_successFr"
             app:destination="@id/successFr"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
-            app:popExitAnim="@anim/to_right"
-            app:popUpTo="@id/successFr" />
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_installmentsListFr_to_paymentMethodsFr"
+            app:destination="@id/paymentMethodsFr"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/successFr"
@@ -91,7 +85,8 @@
             app:exitAnim="@anim/to_right"
             app:popEnterAnim="@anim/from_right"
             app:popExitAnim="@anim/to_left"
-            app:popUpTo="@id/amounFragment" />
+            app:popUpTo="@id/amounFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PlusPagos</string>
+    <string name="app_name">MercadoPago Payment Flow</string>
 
     <string name="amount_fragment_tittle">Selección de monto</string>
     <string name="amount_tittle">Seleccione su importe.</string>
@@ -28,5 +28,6 @@
     <string name="time_instant">Instantáneo</string>
     <string name="time_hours">%s Horas</string>
     <string name="time_minutes">%s Minutos</string>
+    <string name="pay_method">Medio: %s</string>
     <string name="pay_label">Pagás:</string>
 </resources>

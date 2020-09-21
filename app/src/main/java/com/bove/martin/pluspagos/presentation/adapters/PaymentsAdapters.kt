@@ -22,7 +22,7 @@ class PaymentsAdapters(private var paymentList: List<Payment>, private val liste
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.paymentItemBinding.payment = paymentList[position]
+        holder.paymentItemBinding.paymentMethod = paymentList[position]
 
         holder.itemView.setOnClickListener {
             listener.onItemClick(paymentList[position], position)

@@ -40,11 +40,12 @@ class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.payment_fragment_tittle)
-        // In this way we avoid recreating the list when the user goes back,
-        // We could also implement a swipe to refresh to update the list.
-        if(paymentList.isEmpty()) {
+
+        if (paymentList.isEmpty()) {
             viewModel.getPaymentsMethods()
             binding.dataIsloaded = false
+        } else {
+            binding.dataIsloaded = true
         }
 
         paymentsAdapters = PaymentsAdapters(paymentList, this)

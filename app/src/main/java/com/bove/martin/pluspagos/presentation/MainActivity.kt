@@ -1,6 +1,5 @@
 package com.bove.martin.pluspagos.presentation
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             binding.amount = it
         })
 
-        viewModel.userPayMethod.observe(this, {
+        viewModel.userPaymentSelection.observe(this, {
             binding.paymentMethod = it
         })
     }

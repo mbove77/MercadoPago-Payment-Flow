@@ -37,15 +37,19 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
 
         (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.installments_fragment_tittle)
 
-        val userAmount = viewModel.getUserAmount()!!.toFloat()
-        val paymentMethodId = viewModel.getUserPaymentSelection()!!.id
-        val cardIssuerId = viewModel.getUserCardIssuer()?.id
+        val userAmount = viewModel.userAmount.value!!.toFloat()
+        val paymentMethodId = viewModel.userPaymentSelection.value!!.id
+        val cardIssuerId = viewModel.userBankSelection.value?.id
 
-        // We call one implementation or another depending on whether the cardIssuerId is null or not.
-        viewModel.getInstallments(paymentMethodId, userAmount, cardIssuerId)
+        if (payerCostList.isEmpty()) {
+            // We call one implementation or another depending on whether the cardIssuerId is null or not.
+            viewModel.getInstallments(paymentMethodId, userAmount, cardIssuerId)
+            binding.dataIsloaded = false
+        } else {
+            binding.dataIsloaded = true
+        }
 
         installmentsAdapters = InstallmentsAdapters(payerCostList, this)
-        binding.dataIsloaded = false
 
         binding.installmentsRecycler.apply {
             layoutManager = LinearLayoutManager(context)
@@ -54,7 +58,6 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
         }
 
         viewModel.installmentsOptions.observe(viewLifecycleOwner, {
-            // TODO Consider behavior if there is more than 1 Installment Option item.
             binding.dataIsloaded = true
             payerCostList = it[0].payerCosts
             installmentsAdapters.setData(payerCostList)

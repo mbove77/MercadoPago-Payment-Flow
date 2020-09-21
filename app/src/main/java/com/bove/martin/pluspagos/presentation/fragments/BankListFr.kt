@@ -38,11 +38,16 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
 
         (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.bank_fragment_tittle)
 
-        val cardIssuerId: String = viewModel.getUserPaymentSelection()!!.id
-        viewModel.getCardIssuers(cardIssuerId)
+        val cardIssuerId: String = viewModel.userPaymentSelection.value!!.id
+
+        if (banksList.isEmpty()) {
+            viewModel.getCardIssuers(cardIssuerId)
+            binding.dataIsloaded = false
+        } else {
+            binding.dataIsloaded = true
+        }
 
         banksAdapters = BanksAdapters(banksList, this)
-        binding.dataIsloaded = false
 
         binding.banksRecycler.apply {
             layoutManager = LinearLayoutManager(context)
@@ -57,6 +62,7 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
                 binding.dataIsloaded = true
                 if (!(activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet()
             } else {
+                viewModel.setUserCardIssuer(null)
                 // If the list is empty we go to the next fragment, removing this from the stack to ignore it if user goes back.
                 val navBuilder: NavOptions.Builder = NavOptions.Builder()
                 val navOptions: NavOptions = navBuilder.setPopUpTo(R.id.bankListFr, true).build();

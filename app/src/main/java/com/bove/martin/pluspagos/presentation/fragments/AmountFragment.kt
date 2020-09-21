@@ -6,28 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.bove.martin.pluspagos.R
-import com.bove.martin.pluspagos.databinding.FragmentAmounBinding
 import com.bove.martin.pluspagos.presentation.MainActivity
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
-import com.bove.martin.pluspagos.presentation.utils.Constants
 import com.bove.martin.pluspagos.presentation.utils.hideKeyboard
+import kotlinx.android.synthetic.main.fragment_amoun.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class AmountFragment : Fragment() {
 
     private val viewModel: MainActivityViewModel by sharedViewModel()
-    private lateinit var binding: FragmentAmounBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAmounBinding.inflate(inflater, container, false)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_amoun, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,28 +33,22 @@ class AmountFragment : Fragment() {
         (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.amount_fragment_tittle)
         if ((activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).hideBottomSheet()
 
-        binding.buttonPayment.setOnClickListener {
-            if(validateAmount()) {
+        buttonPayment.setOnClickListener {
+                viewModel.validateAmount(edAmount.getNumericValue())
                 it.hideKeyboard()
-                viewModel.setUserAmount(binding.edAmount.getNumericValue()!!)
-                binding.root.findNavController().navigate(R.id.action_amounFragment_to_paymentMethodsFr)
+        }
+
+        viewModel.amountIsValid.observe(viewLifecycleOwner, {
+            if (it != null) {
+                if (it.result) {
+                    viewModel.setUserAmount(edAmount.getNumericValue()!!)
+                    findNavController().navigate(R.id.action_amounFragment_to_paymentMethodsFr)
+                } else {
+                    edAmount.error = it.errorMessage
+                }
             }
-        }
+        })
 
     }
 
-    // Here we can omit the max amount validation and show the empty list message in the next fragment.
-    fun validateAmount():Boolean {
-        var validationResult = true;
-
-        if (binding.edAmount.text.isNullOrEmpty()) {
-            binding.edAmount.error = getString(R.string.amount_empty_validation)
-            validationResult = false
-        } else if (binding.edAmount.getNumericValue()!! > Constants.MAX_ALLOW_ENTRY) {
-            binding.edAmount.error = getString(R.string.amount_max_amount_validation, Constants.MAX_ALLOW_ENTRY.toInt().toString())
-            validationResult = false
-        }
-
-        return validationResult
-    }
 }

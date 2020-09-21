@@ -1,70 +1,83 @@
 package com.bove.martin.pluspagos.presentation
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.bove.martin.pluspagos.data.MemoryRepository
+import androidx.lifecycle.*
+import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.data.MercadoPagoRepository
-import com.bove.martin.pluspagos.domain.model.CardIssuer
-import com.bove.martin.pluspagos.domain.model.InstallmentOption
-import com.bove.martin.pluspagos.domain.model.PayerCost
-import com.bove.martin.pluspagos.domain.model.Payment
+import com.bove.martin.pluspagos.domain.model.*
+import com.bove.martin.pluspagos.presentation.utils.Constants
 import com.bove.martin.pluspagos.presentation.utils.SingleLiveEvent
+import kotlinx.android.synthetic.main.fragment_amoun.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.stream.Collectors
 
+class MainActivityViewModel(private val mercadoPagoRepository: MercadoPagoRepository, application: Application): AndroidViewModel(application) {
 
-class MainActivityViewModel(private val mercadoPagoRepository: MercadoPagoRepository, private val memoryRepository: MemoryRepository): ViewModel() {
+    // user selection
+    private val _userAmount = MutableLiveData<Double>()
+    val userAmount: LiveData<Double> get() = _userAmount
 
-    private val _paymentsMethods = MutableLiveData<List<Payment>>()
+    private val _amountIsValid = MutableLiveData<ValidationResult>()
+    val amountIsValid: LiveData<ValidationResult> get() = _amountIsValid
+
+    private val _userPaymentSelection = MutableLiveData<Payment>()
+    val userPaymentSelection: LiveData<Payment> get() = _userPaymentSelection
+
+    private val _userBankSelection = MutableLiveData<CardIssuer>()
+    val userBankSelection: LiveData<CardIssuer> get() = _userBankSelection
+
+    private val _userInstallmentSelection = MutableLiveData<PayerCost>()
+    val userInstallmentSelection: LiveData<PayerCost> get() = _userInstallmentSelection
+
+
+    // lists
+    private val _paymentsMethods = SingleLiveEvent<List<Payment>>()
     val paymentsMethods: LiveData<List<Payment>> get() = _paymentsMethods
 
     private val _cardIssuers = SingleLiveEvent<List<CardIssuer>>()
     val cardIssuers: LiveData<List<CardIssuer>> get() = _cardIssuers
 
-    private val _installmentsOptions = MutableLiveData<List<InstallmentOption>>()
+    private val _installmentsOptions = SingleLiveEvent<List<InstallmentOption>>()
     val installmentsOptions: LiveData<List<InstallmentOption>> get() = _installmentsOptions
 
-    private val _userAmount = MutableLiveData<String>("")
-    val userAmount: LiveData<String> get() = _userAmount
 
-    private val _userPayMethod = MutableLiveData<String>("")
-    val userPayMethod: LiveData<String> get() = _userPayMethod
-
-    fun getUserAmount() = memoryRepository.userAmount
     fun setUserAmount(amount: Double) {
-        memoryRepository.userAmount = amount
-        _userAmount.value = amount.toInt().toString()
+        _userAmount.value = amount
     }
 
-    fun getUserPaymentSelection() = memoryRepository.userPaymentSelection
     fun setUserPaymentSelection(payment: Payment) {
-        memoryRepository.userPaymentSelection = payment
-        _userPayMethod.value = "Medio: " + payment.name
+        _userPaymentSelection.value = payment
     }
 
-    fun getUserCardIssuer() = memoryRepository.userBankSelection
     fun setUserCardIssuer(cardIssuer: CardIssuer?) {
-        memoryRepository.userBankSelection = cardIssuer
+        _userBankSelection.value = cardIssuer
     }
 
-    fun getUserInstallmentSelection() = memoryRepository.userInstallmentSelection
     fun setUserInstallmentSelection(payerCost: PayerCost) {
-        memoryRepository.userInstallmentSelection = payerCost
+        _userInstallmentSelection.value = payerCost
     }
 
     fun clearUserSelections() {
-        memoryRepository.userAmount = null
-        memoryRepository.userPayMethod = null
-        memoryRepository.userPaymentSelection = null
-        memoryRepository.userBankSelection = null
-        memoryRepository.userInstallmentSelection = null
-        _userPayMethod.value = ""
-        _userAmount.value = ""
+        _userAmount.value = null
+        _amountIsValid.value = null
+        _userPaymentSelection.value = null
+        _userBankSelection.value = null
+        _userInstallmentSelection.value = null
+    }
+
+    fun validateAmount(amount: Double?) {
+        val validationResult = ValidationResult(true, null)
+        if (amount == null) {
+            validationResult.result = false
+            validationResult.errorMessage = getApplication<Application>().resources.getString(R.string.amount_empty_validation)
+        } else if(amount  > Constants.MAX_ALLOW_ENTRY) {
+            validationResult.result = false
+            validationResult.errorMessage = getApplication<Application>().resources. getString(R.string.amount_max_amount_validation, Constants.MAX_ALLOW_ENTRY.toInt().toString())
+        }
+        _amountIsValid.value = validationResult
     }
 
     fun getPaymentsMethods() {
@@ -83,7 +96,7 @@ class MainActivityViewModel(private val mercadoPagoRepository: MercadoPagoReposi
                                 .collect(Collectors.toList())
 
                         val inRangeItems =
-                            activeItems.stream().filter {p -> (getUserAmount()!! >= p.minAllowedAmount && getUserAmount()!! <= p.maxAllowedAmount) }
+                            activeItems.stream().filter {p: Payment -> (userAmount.value!! >= p.minAllowedAmount && userAmount.value!! <= p.maxAllowedAmount) }
                                 .collect(Collectors.toList())
 
                         _paymentsMethods.value = inRangeItems

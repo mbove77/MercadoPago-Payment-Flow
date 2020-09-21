@@ -5,12 +5,11 @@
 
     <data>
         <variable
-            name="payment"
+            name="paymentMethod"
             type="com.bove.martin.pluspagos.domain.model.Payment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -20,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:text="@{payment.name}"
+            android:text="@{paymentMethod.name}"
             android:lines="1"
             android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="@+id/imageViewLogoBack"
@@ -44,7 +43,7 @@
             android:id="@+id/imageViewLogo"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:image="@{payment.secureThumbnail}"
+            app:image="@{paymentMethod.secureThumbnail}"
             app:layout_constraintBottom_toBottomOf="@+id/imageViewLogoBack"
             app:layout_constraintEnd_toEndOf="@+id/imageViewLogoBack"
             app:layout_constraintStart_toStartOf="@+id/imageViewLogoBack"
@@ -78,9 +77,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:textSize="12sp"
-            app:acreditationTime="@{payment.accreditationTime}"
+            app:accreditationTime="@{paymentMethod.accreditationTime}"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

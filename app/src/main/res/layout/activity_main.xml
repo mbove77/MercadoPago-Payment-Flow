@@ -8,11 +8,11 @@
 
         <variable
             name="amount"
-            type="String" />
+            type="Double" />
 
         <variable
             name="paymentMethod"
-            type="String" />
+            type="com.bove.martin.pluspagos.domain.model.Payment" />
 
     </data>
 
@@ -58,7 +58,7 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="@{@string/currency_symbol(amount)}"
+                app:amount="@{amount}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView3"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -70,7 +70,7 @@
                 android:layout_marginStart="8dp"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="@{paymentMethod}"
+                app:paymentMethod="@{paymentMethod}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/importePagar"
