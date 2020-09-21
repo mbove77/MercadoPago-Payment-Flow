@@ -2,6 +2,6 @@
 Demo de Flow de pago usando el Api de MercadoPago.
 
 ### Capturas de pantalla
-![App Preview](https://github.com/mbove77/MercadoPago-Payment-Flow/blob/master/screenshots/1.png?raw=true)
-![App Preview](https://github.com/mbove77/MercadoPago-Payment-Flow/blob/master/screenshots/2.png?raw=true)
-![App Preview](https://github.com/mbove77/MercadoPago-Payment-Flow/blob/master/screenshots/3.png?raw=true)
+![App Preview](https://raw.githubusercontent.com/mbove77/MercadoPago-Payment-Flow/master/screenshots/1.png)
+![App Preview](https://raw.githubusercontent.com/mbove77/MercadoPago-Payment-Flow/master/screenshots/2.png)
+![App Preview](https://raw.githubusercontent.com/mbove77/MercadoPago-Payment-Flow/master/screenshots/3.png)
