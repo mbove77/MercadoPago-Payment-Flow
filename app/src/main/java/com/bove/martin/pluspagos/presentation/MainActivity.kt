@@ -4,21 +4,20 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import android.view.animation.TranslateAnimation
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.databinding.ActivityMainBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.roundToInt
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    private val viewModel: MainActivityViewModel by viewModel()
+    private val viewModel by viewModels<MainActivityViewModel>()
     private lateinit var binding: ActivityMainBinding
     private lateinit var behavior: BottomSheetBehavior<View>
     private lateinit var bottomSheet: View
@@ -26,24 +25,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //TODO add support to dark theme
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
         setupActionBarWithNavController(findNavController(R.id.mainHostFragment))
         behavior = BottomSheetBehavior.from<View>(binding.bottomSheet)
-        bottomSheet = binding.bottomSheet as View
+        bottomSheet = binding.bottomSheet
         behavior.peekHeight = 0
 
-        viewModel.userAmount.observe(this, {
+        viewModel.userAmount.observe(this) {
             binding.amount = it
-        })
+        }
 
-        viewModel.userPaymentSelection.observe(this, {
+        viewModel.userPaymentSelection.observe(this) {
             binding.paymentMethod = it
-        })
+        }
     }
 
     fun showBottomSheet() {

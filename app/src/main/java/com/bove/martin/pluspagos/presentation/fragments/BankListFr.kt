@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,11 +17,10 @@ import com.bove.martin.pluspagos.domain.model.CardIssuer
 import com.bove.martin.pluspagos.presentation.MainActivity
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.BanksAdapters
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
-    private val viewModel: MainActivityViewModel by sharedViewModel()
+    private val viewModel: MainActivityViewModel by activityViewModels()
     private lateinit var binding: FragmentBankListBinding
     private lateinit var banksAdapters: BanksAdapters
     private var banksList: List<CardIssuer> = ArrayList()
@@ -55,7 +55,7 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
             adapter = banksAdapters
         }
 
-        viewModel.cardIssuers.observe(viewLifecycleOwner, {
+        viewModel.cardIssuers.observe(viewLifecycleOwner) {
             if (it.size > 1) {
                 banksList = it
                 banksAdapters.setData(banksList)
@@ -65,10 +65,11 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
                 viewModel.setUserCardIssuer(null)
                 // If the list is empty we go to the next fragment, removing this from the stack to ignore it if user goes back.
                 val navBuilder: NavOptions.Builder = NavOptions.Builder()
-                val navOptions: NavOptions = navBuilder.setPopUpTo(R.id.bankListFr, true).build();
-                binding.root.findNavController().navigate(R.id.action_bankListFr_to_installmentsListFr, null, navOptions)
+                val navOptions: NavOptions = navBuilder.setPopUpTo(R.id.bankListFr, true).build()
+                binding.root.findNavController()
+                    .navigate(R.id.action_bankListFr_to_installmentsListFr, null, navOptions)
             }
-        })
+        }
     }
 
     override fun onItemClick(cardIssuer: CardIssuer, posicion: Int) {

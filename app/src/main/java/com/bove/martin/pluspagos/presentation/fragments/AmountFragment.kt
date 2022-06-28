@@ -6,18 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.presentation.MainActivity
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.utils.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_amoun.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class AmountFragment : Fragment() {
 
-    private val viewModel: MainActivityViewModel by sharedViewModel()
+    private val viewModel: MainActivityViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +38,7 @@ class AmountFragment : Fragment() {
                 it.hideKeyboard()
         }
 
-        viewModel.amountIsValid.observe(viewLifecycleOwner, {
+        viewModel.amountIsValid.observe(viewLifecycleOwner) {
             if (it != null) {
                 if (it.result) {
                     viewModel.setUserAmount(edAmount.getNumericValue()!!)
@@ -47,7 +47,7 @@ class AmountFragment : Fragment() {
                     edAmount.error = it.errorMessage
                 }
             }
-        })
+        }
 
     }
 

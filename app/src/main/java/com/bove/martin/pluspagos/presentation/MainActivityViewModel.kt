@@ -1,20 +1,26 @@
 package com.bove.martin.pluspagos.presentation
 
-import android.app.Application
+import android.content.Context
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.bove.martin.pluspagos.AppConstants
 import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.data.MercadoPagoRepository
 import com.bove.martin.pluspagos.domain.model.*
-import com.bove.martin.pluspagos.presentation.utils.Constants
 import com.bove.martin.pluspagos.presentation.utils.SingleLiveEvent
-import kotlinx.android.synthetic.main.fragment_amoun.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.stream.Collectors
+import javax.inject.Inject
 
-class MainActivityViewModel(private val mercadoPagoRepository: MercadoPagoRepository, application: Application): AndroidViewModel(application) {
+@HiltViewModel
+class MainActivityViewModel @Inject constructor(private val mercadoPagoRepository: MercadoPagoRepository, @ApplicationContext val context: Context): ViewModel() {
 
     // user selection
     private val _userAmount = MutableLiveData<Double>()
@@ -72,10 +78,10 @@ class MainActivityViewModel(private val mercadoPagoRepository: MercadoPagoReposi
         val validationResult = ValidationResult(true, null)
         if (amount == null) {
             validationResult.result = false
-            validationResult.errorMessage = getApplication<Application>().resources.getString(R.string.amount_empty_validation)
-        } else if(amount  > Constants.MAX_ALLOW_ENTRY) {
+            validationResult.errorMessage = context.resources.getString(R.string.amount_empty_validation)
+        } else if(amount  > AppConstants.MAX_ALLOW_ENTRY) {
             validationResult.result = false
-            validationResult.errorMessage = getApplication<Application>().resources. getString(R.string.amount_max_amount_validation, Constants.MAX_ALLOW_ENTRY.toInt().toString())
+            validationResult.errorMessage = context.resources. getString(R.string.amount_max_amount_validation, AppConstants.MAX_ALLOW_ENTRY.toInt().toString())
         }
         _amountIsValid.value = validationResult
     }

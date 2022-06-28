@@ -1,28 +1,25 @@
 package com.bove.martin.pluspagos.presentation.fragments
 
 import android.os.Bundle
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.databinding.FragmentPaymentMethodsBinding
-
 import com.bove.martin.pluspagos.domain.model.Payment
 import com.bove.martin.pluspagos.presentation.MainActivity
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.PaymentsAdapters
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
-    private val viewModel: MainActivityViewModel by sharedViewModel()
+    private val viewModel: MainActivityViewModel by activityViewModels()
     private lateinit var binding: FragmentPaymentMethodsBinding
     private lateinit var paymentsAdapters: PaymentsAdapters
     private var paymentList: List<Payment> = ArrayList()

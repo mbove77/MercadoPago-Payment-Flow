@@ -5,8 +5,9 @@ import com.bove.martin.pluspagos.domain.model.CardIssuer
 import com.bove.martin.pluspagos.domain.model.InstallmentOption
 import com.bove.martin.pluspagos.domain.model.Payment
 import retrofit2.Response
+import javax.inject.Inject
 
-class MercadoPagoRepository(private val mercadoPagoServices: MercadoPagoServices) {
+class MercadoPagoRepository @Inject constructor(private val mercadoPagoServices: MercadoPagoServices) {
 
     suspend fun getPaymentsMethods() : Response<List<Payment>>  {
         return mercadoPagoServices.paymentMethods()

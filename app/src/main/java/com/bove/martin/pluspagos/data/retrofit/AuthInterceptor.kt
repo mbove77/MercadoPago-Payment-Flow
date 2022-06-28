@@ -1,6 +1,6 @@
 package com.bove.martin.pluspagos.data.retrofit
 
-import com.bove.martin.pluspagos.presentation.utils.ApiKey
+import com.bove.martin.pluspagos.ApiKey
 import okhttp3.Interceptor
 import okhttp3.Response
 
