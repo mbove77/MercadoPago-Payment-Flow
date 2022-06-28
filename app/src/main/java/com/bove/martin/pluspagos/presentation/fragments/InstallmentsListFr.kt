@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,10 +16,9 @@ import com.bove.martin.pluspagos.domain.model.PayerCost
 import com.bove.martin.pluspagos.presentation.MainActivity
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.InstallmentsAdapters
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener {
-    private val viewModel: MainActivityViewModel by sharedViewModel()
+    private val viewModel: MainActivityViewModel by activityViewModels()
     private lateinit var binding: FragmentInstallmentsListBinding
 
     private lateinit var installmentsAdapters: InstallmentsAdapters
