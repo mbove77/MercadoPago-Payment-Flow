@@ -28,14 +28,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //TODO add support to dark theme
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        initUi()
+        initObservables()
+    }
 
-        setupActionBarWithNavController(findNavController(R.id.mainHostFragment))
-        behavior = BottomSheetBehavior.from<View>(binding.bottomSheet)
-        bottomSheet = binding.bottomSheet
-        behavior.peekHeight = 0
-
+    private fun initObservables() {
         viewModel.userAmount.observe(this) {
             binding.amount = it
         }
@@ -43,6 +40,16 @@ class MainActivity : AppCompatActivity() {
         viewModel.userPaymentSelection.observe(this) {
             binding.paymentMethod = it
         }
+    }
+
+    private fun initUi() {
+        //TODO add support to dark theme
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        setupActionBarWithNavController(findNavController(R.id.mainHostFragment))
+        behavior = BottomSheetBehavior.from<View>(binding.bottomSheet)
+        bottomSheet = binding.bottomSheet
+        behavior.peekHeight = 0
     }
 
     fun showBottomSheet() {
