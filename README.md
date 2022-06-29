@@ -14,4 +14,8 @@ Demo de Flow de pago usando el Api de MercadoPago.
  <img src="https://raw.githubusercontent.com/mbove77/MercadoPago-Payment-Flow/master/screenshots/2.png" width="300" />
  &nbsp; &nbsp; &nbsp; &nbsp;
  <img src="https://raw.githubusercontent.com/mbove77/MercadoPago-Payment-Flow/master/screenshots/3.png" width="300" />
+  &nbsp; &nbsp; &nbsp; &nbsp;
+ <img src="https://raw.githubusercontent.com/mbove77/MercadoPago-Payment-Flow/master/screenshots/4.png" width="300" />
+   &nbsp; &nbsp; &nbsp; &nbsp;
+ <img src="https://raw.githubusercontent.com/mbove77/MercadoPago-Payment-Flow/master/screenshots/5.png" width="300" />
 </p>
