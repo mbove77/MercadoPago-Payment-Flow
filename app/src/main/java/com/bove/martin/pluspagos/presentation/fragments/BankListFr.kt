@@ -57,7 +57,7 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
                 banksList = it
                 banksAdapters.setData(banksList)
                 binding.dataIsloaded = true
-                if (!(activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet()
+                if (!(activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet(true)
             } else {
                 viewModel.setUserCardIssuer(null)
                 // If the list is empty we go to the next fragment, removing this from the stack to ignore it if user goes back.

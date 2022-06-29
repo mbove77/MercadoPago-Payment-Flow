@@ -55,7 +55,7 @@ class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
             paymentList = it
             paymentsAdapters.setData(paymentList)
             binding.dataIsloaded = true
-            if (!(activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet()
+            if (!(activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet(true)
         }
     }
 

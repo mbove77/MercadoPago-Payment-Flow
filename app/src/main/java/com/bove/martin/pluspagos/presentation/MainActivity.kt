@@ -58,27 +58,23 @@ class MainActivity : AppCompatActivity() {
         behavior.peekHeight = 0
     }
 
-    fun showBottomSheet() {
-        val px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90f, resources.displayMetrics).roundToInt()
-        behavior.peekHeight = px
-        val animate = TranslateAnimation(0f, 0f, bottomSheet.height.toFloat(), 0f)
+    fun showBottomSheet(show: Boolean) {
+        val animate: TranslateAnimation
+        if(show) {
+            val px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90f, resources.displayMetrics).roundToInt()
+            behavior.peekHeight = px
+            animate = TranslateAnimation(0f, 0f, bottomSheet.height.toFloat(), 0f)
+        } else {
+            animate = TranslateAnimation(0f, 0f, 0f, bottomSheet.height.toFloat())
+        }
         animate.duration = 500
         animate.fillAfter = true
         animate.startOffset = 200
         bottomSheet.startAnimation(animate)
-        bottomSheetIsVisible = true
+        bottomSheetIsVisible = show
     }
 
-    fun hideBottomSheet() {
-        val animate = TranslateAnimation(0f, 0f, 0f, bottomSheet.height.toFloat())
-        animate.duration = 500
-        animate.fillAfter = true
-        animate.startOffset = 200
-        bottomSheet.startAnimation(animate)
-        bottomSheetIsVisible = false
-    }
-
-    fun displayErrors(text: UiText) {
+    private fun displayErrors(text: UiText) {
         Toast.makeText(this, text.asString(this), Toast.LENGTH_SHORT).show()
     }
 

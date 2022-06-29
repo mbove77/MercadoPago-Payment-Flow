@@ -29,7 +29,7 @@ class AmountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if ((activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).hideBottomSheet()
+        if ((activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet(false)
 
         buttonPayment.setOnClickListener {
                 viewModel.validateAmount(edAmount.getNumericValue())

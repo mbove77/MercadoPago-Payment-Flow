@@ -54,12 +54,14 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
             adapter = installmentsAdapters
         }
 
-        viewModel.installmentsOptions.observe(viewLifecycleOwner, {
+        viewModel.installmentsOptions.observe(viewLifecycleOwner) {
             binding.dataIsloaded = true
             payerCostList = it[0].payerCosts
             installmentsAdapters.setData(payerCostList)
-            if (!(activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet()
-        })
+            if (!(activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet(
+                true
+            )
+        }
 
     }
 
