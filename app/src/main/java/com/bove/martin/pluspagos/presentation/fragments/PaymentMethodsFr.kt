@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -28,7 +27,7 @@ class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPaymentMethodsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -36,7 +35,6 @@ class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.payment_fragment_tittle)
 
         if (paymentList.isEmpty()) {
             viewModel.getPaymentsMethods()
@@ -53,12 +51,12 @@ class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
             adapter = paymentsAdapters
         }
 
-        viewModel.paymentsMethods.observe(viewLifecycleOwner, {
+        viewModel.paymentsMethods.observe(viewLifecycleOwner) {
             paymentList = it
             paymentsAdapters.setData(paymentList)
             binding.dataIsloaded = true
-            if (!(activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet()
-        })
+            if (!(activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet(true)
+        }
     }
 
     override fun onItemClick(payment: Payment, posicion: Int) {

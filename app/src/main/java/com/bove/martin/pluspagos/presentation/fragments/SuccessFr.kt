@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -21,15 +20,14 @@ class SuccessFr : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSuccessBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.success_fragment_tittle)
-        if ((activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).hideBottomSheet()
+        if ((activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet(false)
 
         binding.viewModel = viewModel
 

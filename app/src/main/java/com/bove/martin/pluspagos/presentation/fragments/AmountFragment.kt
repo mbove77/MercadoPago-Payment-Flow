@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -30,8 +29,7 @@ class AmountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.amount_fragment_tittle)
-        if ((activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).hideBottomSheet()
+        if ((activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet(false)
 
         buttonPayment.setOnClickListener {
                 viewModel.validateAmount(edAmount.getNumericValue())
@@ -40,11 +38,11 @@ class AmountFragment : Fragment() {
 
         viewModel.amountIsValid.observe(viewLifecycleOwner) {
             if (it != null) {
-                if (it.result) {
+                if (it.operationResult) {
                     viewModel.setUserAmount(edAmount.getNumericValue()!!)
                     findNavController().navigate(R.id.action_amounFragment_to_paymentMethodsFr)
                 } else {
-                    edAmount.error = it.errorMessage
+                    edAmount.error = it.resultMensaje?.asString((activity as MainActivity).applicationContext)
                 }
             }
         }

@@ -1,148 +1,111 @@
 package com.bove.martin.pluspagos.presentation
 
-import android.content.Context
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bove.martin.pluspagos.AppConstants
-import com.bove.martin.pluspagos.R
-import com.bove.martin.pluspagos.data.MercadoPagoRepository
 import com.bove.martin.pluspagos.domain.model.*
+import com.bove.martin.pluspagos.domain.usercase.GetCardIssuersUseCase
+import com.bove.martin.pluspagos.domain.usercase.GetInstallmentsUseCase
+import com.bove.martin.pluspagos.domain.usercase.GetPaymentsMethodsUseCase
+import com.bove.martin.pluspagos.domain.usercase.ValidateAmountUseCase
 import com.bove.martin.pluspagos.presentation.utils.SingleLiveEvent
+import com.bove.martin.pluspagos.presentation.utils.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.stream.Collectors
 import javax.inject.Inject
 
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(private val mercadoPagoRepository: MercadoPagoRepository, @ApplicationContext val context: Context): ViewModel() {
+class MainActivityViewModel @Inject constructor(
+    private val validateAmountUseCase: ValidateAmountUseCase,
+    private val getPaymentsMethodsUseCase: GetPaymentsMethodsUseCase,
+    private val getCardIssuersUseCase: GetCardIssuersUseCase,
+    private val getInstallmentsUseCase: GetInstallmentsUseCase
+    ): ViewModel() {
 
     // user selection
-    private val _userAmount = MutableLiveData<Double>()
-    val userAmount: LiveData<Double> get() = _userAmount
-
-    private val _amountIsValid = MutableLiveData<ValidationResult>()
-    val amountIsValid: LiveData<ValidationResult> get() = _amountIsValid
-
-    private val _userPaymentSelection = MutableLiveData<Payment>()
-    val userPaymentSelection: LiveData<Payment> get() = _userPaymentSelection
-
-    private val _userBankSelection = MutableLiveData<CardIssuer>()
-    val userBankSelection: LiveData<CardIssuer> get() = _userBankSelection
-
-    private val _userInstallmentSelection = MutableLiveData<PayerCost>()
-    val userInstallmentSelection: LiveData<PayerCost> get() = _userInstallmentSelection
-
+    val userAmount = MutableLiveData<Double>()
+    val amountIsValid = MutableLiveData<OperationResult>()
+    val userPaymentSelection = MutableLiveData<Payment>()
+    val userBankSelection = MutableLiveData<CardIssuer>()
+    val userInstallmentSelection = MutableLiveData<PayerCost>()
 
     // lists
-    private val _paymentsMethods = SingleLiveEvent<List<Payment>>()
-    val paymentsMethods: LiveData<List<Payment>> get() = _paymentsMethods
+    val paymentsMethods = SingleLiveEvent<List<Payment>>()
+    val cardIssuers = SingleLiveEvent<List<CardIssuer>>()
+    val installmentsOptions = SingleLiveEvent<List<InstallmentOption>>()
 
-    private val _cardIssuers = SingleLiveEvent<List<CardIssuer>>()
-    val cardIssuers: LiveData<List<CardIssuer>> get() = _cardIssuers
-
-    private val _installmentsOptions = SingleLiveEvent<List<InstallmentOption>>()
-    val installmentsOptions: LiveData<List<InstallmentOption>> get() = _installmentsOptions
+    val operationsError = MutableLiveData<UiText>()
 
 
     fun setUserAmount(amount: Double) {
-        _userAmount.value = amount
+        userAmount.postValue(amount)
     }
-
     fun setUserPaymentSelection(payment: Payment) {
-        _userPaymentSelection.value = payment
+        userPaymentSelection.postValue(payment)
     }
-
     fun setUserCardIssuer(cardIssuer: CardIssuer?) {
-        _userBankSelection.value = cardIssuer
+        userBankSelection.postValue(cardIssuer)
     }
-
     fun setUserInstallmentSelection(payerCost: PayerCost) {
-        _userInstallmentSelection.value = payerCost
+        userInstallmentSelection.postValue(payerCost)
     }
 
     fun clearUserSelections() {
-        _userAmount.value = null
-        _amountIsValid.value = null
-        _userPaymentSelection.value = null
-        _userBankSelection.value = null
-        _userInstallmentSelection.value = null
+        userAmount.postValue(null)
+        amountIsValid.postValue(null)
+        userPaymentSelection.postValue(null)
+        userBankSelection.postValue(null)
+        userInstallmentSelection.postValue(null)
     }
 
     fun validateAmount(amount: Double?) {
-        val validationResult = ValidationResult(true, null)
-        if (amount == null) {
-            validationResult.result = false
-            validationResult.errorMessage = context.resources.getString(R.string.amount_empty_validation)
-        } else if(amount  > AppConstants.MAX_ALLOW_ENTRY) {
-            validationResult.result = false
-            validationResult.errorMessage = context.resources. getString(R.string.amount_max_amount_validation, AppConstants.MAX_ALLOW_ENTRY.toInt().toString())
-        }
-        _amountIsValid.value = validationResult
+        amountIsValid.postValue(validateAmountUseCase(amount))
     }
 
     fun getPaymentsMethods() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = mercadoPagoRepository.getPaymentsMethods()
+        viewModelScope.launch {
+            val response = getPaymentsMethodsUseCase(userAmount.value)
 
-            if (response.isSuccessful) {
+            if (response.operationResult) {
                 withContext(Dispatchers.Main) {
-                    if (!response.body().isNullOrEmpty()) {
-
-                        // Filter the list for remove not active elements and out of price range.
-                        val tempList = response.body()!!
-
-                        val activeItems =
-                            tempList.stream().filter {p -> p.status == "active" }
-                                .collect(Collectors.toList())
-
-                        val inRangeItems =
-                            activeItems.stream().filter {p: Payment -> (userAmount.value!! >= p.minAllowedAmount && userAmount.value!! <= p.maxAllowedAmount) }
-                                .collect(Collectors.toList())
-
-                        _paymentsMethods.value = inRangeItems
-                    }
+                    val paymentList: List<Payment> = (response.resultObject as List<*>).filterIsInstance<Payment>()
+                    paymentsMethods.postValue(paymentList)
                 }
             } else {
-                Log.e("Retrofit", "Error in payments methods request.")
+                operationsError.postValue(response.resultMensaje)
             }
         }
     }
 
     fun getCardIssuers(id: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = mercadoPagoRepository.getCardIssuers(id)
+        viewModelScope.launch {
+            val response = getCardIssuersUseCase(id)
 
-            if (response.isSuccessful) {
+            if (response.operationResult) {
                 withContext(Dispatchers.Main) {
-                    _cardIssuers.value = response.body()
+                    val cardIssuerList: List<CardIssuer> = (response.resultObject as List<*>).filterIsInstance<CardIssuer>()
+                    cardIssuers.postValue(cardIssuerList)
                 }
             } else {
-                Log.e("Retrofit", "Error in card issuers request.")
+                operationsError.postValue(response.resultMensaje)
             }
         }
     }
 
     fun getInstallments(id: String, amount: Float, issuerId: String?) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
 
-            val response= if (issuerId.isNullOrEmpty()) {
-                mercadoPagoRepository.getInstallmentsOptions(id, amount)
-            } else {
-                mercadoPagoRepository.getInstallmentsOptions(id, amount, issuerId)
-            }
+            val response = getInstallmentsUseCase(id, amount, issuerId)
 
-            if (response.isSuccessful) {
+            if (response.operationResult) {
                 withContext(Dispatchers.Main) {
-                    _installmentsOptions.value = response.body()
+                    val installmentsOptionsList: List<InstallmentOption> = (response.resultObject as List<*>).filterIsInstance<InstallmentOption>()
+                    installmentsOptions.postValue(installmentsOptionsList)
                 }
             } else {
-                Log.e("Retrofit", "Error in installments options request.")
+                operationsError.postValue(response.resultMensaje)
             }
         }
     }
