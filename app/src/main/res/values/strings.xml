@@ -30,4 +30,5 @@
     <string name="time_minutes">%s Minutos</string>
     <string name="pay_method">Medio: %s</string>
     <string name="pay_label">Pagás:</string>
+    <string name="payments_methods_error">Ocurrio un error al recibir los medios de pago.</string>
 </resources>

@@ -5,13 +5,12 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bove.martin.pluspagos.AppConstants
-import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.data.MercadoPagoRepository
-import com.bove.martin.pluspagos.domain.GetPaymentsMethodsUseCase
 import com.bove.martin.pluspagos.domain.model.*
+import com.bove.martin.pluspagos.domain.usercase.GetPaymentsMethodsUseCase
+import com.bove.martin.pluspagos.domain.usercase.ValidateAmountUseCase
 import com.bove.martin.pluspagos.presentation.utils.SingleLiveEvent
-import com.orhanobut.logger.Logger
+import com.bove.martin.pluspagos.presentation.utils.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -23,12 +22,13 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(
     private val mercadoPagoRepository: MercadoPagoRepository,
     @ApplicationContext val context: Context,
+    private val validateAmountUseCase: ValidateAmountUseCase,
     private val getPaymentsMethodsUseCase: GetPaymentsMethodsUseCase
     ): ViewModel() {
 
     // user selection
     val userAmount = MutableLiveData<Double>()
-    val amountIsValid = MutableLiveData<ValidationResult>()
+    val amountIsValid = MutableLiveData<OperationResult>()
     val userPaymentSelection = MutableLiveData<Payment>()
     val userBankSelection = MutableLiveData<CardIssuer>()
     val userInstallmentSelection = MutableLiveData<PayerCost>()
@@ -37,6 +37,8 @@ class MainActivityViewModel @Inject constructor(
     val paymentsMethods = SingleLiveEvent<List<Payment>>()
     val cardIssuers = SingleLiveEvent<List<CardIssuer>>()
     val installmentsOptions = SingleLiveEvent<List<InstallmentOption>>()
+
+    val operationsError = MutableLiveData<UiText>()
 
 
     fun setUserAmount(amount: Double) {
@@ -61,26 +63,19 @@ class MainActivityViewModel @Inject constructor(
     }
 
     fun validateAmount(amount: Double?) {
-        val validationResult = ValidationResult(true, null)
-        if (amount == null) {
-            validationResult.result = false
-            validationResult.errorMessage = context.resources.getString(R.string.amount_empty_validation)
-        } else if(amount  > AppConstants.MAX_ALLOW_ENTRY) {
-            validationResult.result = false
-            validationResult.errorMessage = context.resources. getString(R.string.amount_max_amount_validation, AppConstants.MAX_ALLOW_ENTRY.toInt().toString())
-        }
-        amountIsValid.postValue(validationResult)
+        amountIsValid.postValue(validateAmountUseCase(amount))
     }
 
     fun getPaymentsMethods() {
         viewModelScope.launch {
             val response = getPaymentsMethodsUseCase(userAmount.value)
-            if (response.isNullOrEmpty()) {
-                Logger.e("Retrofit", "Error in payments methods request.")
-            } else {
+
+            if (response.operationResult) {
                 withContext(Dispatchers.Main) {
-                    paymentsMethods.postValue(response)
+                    paymentsMethods.postValue(response.resultObject as List<Payment>)
                 }
+            } else {
+                operationsError.postValue(response.resultMensaje)
             }
         }
     }

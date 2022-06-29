@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import android.view.animation.TranslateAnimation
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -11,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.databinding.ActivityMainBinding
+import com.bove.martin.pluspagos.presentation.utils.UiText
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.roundToInt
@@ -39,6 +41,10 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.userPaymentSelection.observe(this) {
             binding.paymentMethod = it
+        }
+
+        viewModel.operationsError.observe(this) {
+            displayErrors(it)
         }
     }
 
@@ -70,6 +76,10 @@ class MainActivity : AppCompatActivity() {
         animate.startOffset = 200
         bottomSheet.startAnimation(animate)
         bottomSheetIsVisible = false
+    }
+
+    fun displayErrors(text: UiText) {
+        Toast.makeText(this, text.asString(this), Toast.LENGTH_SHORT).show()
     }
 
     override fun onSupportNavigateUp(): Boolean {

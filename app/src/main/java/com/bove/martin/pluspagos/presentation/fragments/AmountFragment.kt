@@ -40,11 +40,11 @@ class AmountFragment : Fragment() {
 
         viewModel.amountIsValid.observe(viewLifecycleOwner) {
             if (it != null) {
-                if (it.result) {
+                if (it.operationResult) {
                     viewModel.setUserAmount(edAmount.getNumericValue()!!)
                     findNavController().navigate(R.id.action_amounFragment_to_paymentMethodsFr)
                 } else {
-                    edAmount.error = it.errorMessage
+                    edAmount.error = it.resultMensaje?.asString((activity as MainActivity).applicationContext)
                 }
             }
         }
