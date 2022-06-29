@@ -1,18 +1,16 @@
 package com.bove.martin.pluspagos.presentation
 
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bove.martin.pluspagos.data.MercadoPagoRepository
 import com.bove.martin.pluspagos.domain.model.*
+import com.bove.martin.pluspagos.domain.usercase.GetCardIssuersUseCase
+import com.bove.martin.pluspagos.domain.usercase.GetInstallmentsUseCase
 import com.bove.martin.pluspagos.domain.usercase.GetPaymentsMethodsUseCase
 import com.bove.martin.pluspagos.domain.usercase.ValidateAmountUseCase
 import com.bove.martin.pluspagos.presentation.utils.SingleLiveEvent
 import com.bove.martin.pluspagos.presentation.utils.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,10 +18,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val mercadoPagoRepository: MercadoPagoRepository,
-    @ApplicationContext val context: Context,
     private val validateAmountUseCase: ValidateAmountUseCase,
-    private val getPaymentsMethodsUseCase: GetPaymentsMethodsUseCase
+    private val getPaymentsMethodsUseCase: GetPaymentsMethodsUseCase,
+    private val getCardIssuersUseCase: GetCardIssuersUseCase,
+    private val getInstallmentsUseCase: GetInstallmentsUseCase
     ): ViewModel() {
 
     // user selection
@@ -72,7 +70,8 @@ class MainActivityViewModel @Inject constructor(
 
             if (response.operationResult) {
                 withContext(Dispatchers.Main) {
-                    paymentsMethods.postValue(response.resultObject as List<Payment>)
+                    val paymentList: List<Payment> = (response.resultObject as List<*>).filterIsInstance<Payment>()
+                    paymentsMethods.postValue(paymentList)
                 }
             } else {
                 operationsError.postValue(response.resultMensaje)
@@ -82,14 +81,15 @@ class MainActivityViewModel @Inject constructor(
 
     fun getCardIssuers(id: String) {
         viewModelScope.launch {
-            val response = mercadoPagoRepository.getCardIssuers(id)
+            val response = getCardIssuersUseCase(id)
 
-            if (response.isSuccessful) {
+            if (response.operationResult) {
                 withContext(Dispatchers.Main) {
-                    cardIssuers.postValue(response.body())
+                    val cardIssuerList: List<CardIssuer> = (response.resultObject as List<*>).filterIsInstance<CardIssuer>()
+                    cardIssuers.postValue(cardIssuerList)
                 }
             } else {
-                Log.e("Retrofit", "Error in card issuers request.")
+                operationsError.postValue(response.resultMensaje)
             }
         }
     }
@@ -97,18 +97,15 @@ class MainActivityViewModel @Inject constructor(
     fun getInstallments(id: String, amount: Float, issuerId: String?) {
         viewModelScope.launch {
 
-            val response= if (issuerId.isNullOrEmpty()) {
-                mercadoPagoRepository.getInstallmentsOptions(id, amount)
-            } else {
-                mercadoPagoRepository.getInstallmentsOptions(id, amount, issuerId)
-            }
+            val response = getInstallmentsUseCase(id, amount, issuerId)
 
-            if (response.isSuccessful) {
+            if (response.operationResult) {
                 withContext(Dispatchers.Main) {
-                    installmentsOptions.postValue( response.body())
+                    val installmentsOptionsList: List<InstallmentOption> = (response.resultObject as List<*>).filterIsInstance<InstallmentOption>()
+                    installmentsOptions.postValue(installmentsOptionsList)
                 }
             } else {
-                Log.e("Retrofit", "Error in installments options request.")
+                operationsError.postValue(response.resultMensaje)
             }
         }
     }
