@@ -9,19 +9,19 @@ import javax.inject.Inject
 
 class MercadoPagoRepository @Inject constructor(private val mercadoPagoServices: MercadoPagoServices) {
 
-    suspend fun getPaymentsMethods() : Response<List<Payment>>  {
+    suspend fun getPaymentsMethods(): Response<List<Payment>> {
         return mercadoPagoServices.paymentMethods()
     }
 
-    suspend fun getCardIssuers(id:String): Response<List<CardIssuer>> {
+    suspend fun getCardIssuers(id: String): Response<List<CardIssuer>> {
         return mercadoPagoServices.getCardIssuers(id)
     }
 
-    suspend fun getInstallmentsOptions(id: String, amount:Float, issuerId:String): Response<List<InstallmentOption>> {
-      return  mercadoPagoServices.getInstallmentsOptions(id, amount, issuerId)
+    suspend fun getInstallmentsOptions(id: String, amount: Float, issuerId: String): Response<List<InstallmentOption>> {
+        return mercadoPagoServices.getInstallmentsOptions(id, amount, issuerId)
     }
 
-    suspend fun getInstallmentsOptions(id: String, amount:Float): Response<List<InstallmentOption>> {
-        return  mercadoPagoServices.getInstallmentsOptions(id, amount)
+    suspend fun getInstallmentsOptions(id: String, amount: Float): Response<List<InstallmentOption>> {
+        return mercadoPagoServices.getInstallmentsOptions(id, amount)
     }
 }

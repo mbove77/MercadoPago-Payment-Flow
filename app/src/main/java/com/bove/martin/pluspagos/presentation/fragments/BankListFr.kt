@@ -17,7 +17,6 @@ import com.bove.martin.pluspagos.presentation.MainActivity
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.BanksAdapters
 
-
 class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
     private val viewModel: MainActivityViewModel by activityViewModels()
     private lateinit var binding: FragmentBankListBinding
@@ -25,7 +24,8 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
     private var banksList: List<CardIssuer> = ArrayList()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentBankListBinding.inflate(inflater, container, false)
@@ -60,7 +60,7 @@ class BankListFr : Fragment(), BanksAdapters.OnItemClickListener {
                 if (!(activity as MainActivity).bottomSheetIsVisible) (activity as MainActivity).showBottomSheet(true)
             } else {
                 viewModel.setUserCardIssuer(null)
-                // If the list is empty we go to the next fragment, removing this from the stack to ignore it if user goes back.
+                // If list is empty go next fragment, removing this from the stack to ignore it if user goes back.
                 val navBuilder: NavOptions.Builder = NavOptions.Builder()
                 val navOptions: NavOptions = navBuilder.setPopUpTo(R.id.bankListFr, true).build()
                 binding.root.findNavController()

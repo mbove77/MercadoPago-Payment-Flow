@@ -11,7 +11,7 @@ import javax.inject.Inject
  * Created by Martín Bove on 29/6/2022.
  * E-mail: mbove77@gmail.com
  */
-class GetInstallmentsUseCase  @Inject constructor(private val mercadoPagoRepository: MercadoPagoRepository) {
+class GetInstallmentsUseCase @Inject constructor(private val mercadoPagoRepository: MercadoPagoRepository) {
     suspend operator fun invoke(id: String, amount: Float, issuerId: String?): OperationResult {
 
         return if (id.isNotEmpty() && (amount > 0 && amount <= AppConstants.MAX_ALLOW_ENTRY)) {

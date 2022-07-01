@@ -12,13 +12,13 @@ import com.bove.martin.pluspagos.databinding.FragmentSuccessBinding
 import com.bove.martin.pluspagos.presentation.MainActivity
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 
-
 class SuccessFr : Fragment() {
     private val viewModel: MainActivityViewModel by activityViewModels()
     private lateinit var binding: FragmentSuccessBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSuccessBinding.inflate(inflater, container, false)
@@ -36,5 +36,4 @@ class SuccessFr : Fragment() {
             binding.root.findNavController().navigate(R.id.action_successFr_to_amounFragment)
         }
     }
-
 }

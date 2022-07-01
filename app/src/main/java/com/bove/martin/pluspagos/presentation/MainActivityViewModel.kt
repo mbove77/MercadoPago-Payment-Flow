@@ -22,7 +22,7 @@ class MainActivityViewModel @Inject constructor(
     private val getPaymentsMethodsUseCase: GetPaymentsMethodsUseCase,
     private val getCardIssuersUseCase: GetCardIssuersUseCase,
     private val getInstallmentsUseCase: GetInstallmentsUseCase
-    ): ViewModel() {
+) : ViewModel() {
 
     // user selection
     val userAmount = MutableLiveData<Double>()
@@ -37,7 +37,6 @@ class MainActivityViewModel @Inject constructor(
     val installmentsOptions = SingleLiveEvent<List<InstallmentOption>>()
 
     val operationsError = MutableLiveData<UiText>()
-
 
     fun setUserAmount(amount: Double) {
         userAmount.postValue(amount)
@@ -85,7 +84,7 @@ class MainActivityViewModel @Inject constructor(
 
             if (response.operationResult) {
                 withContext(Dispatchers.Main) {
-                    val cardIssuerList: List<CardIssuer> = (response.resultObject as List<*>).filterIsInstance<CardIssuer>()
+                    val cardIssuerList = (response.resultObject as List<*>).filterIsInstance<CardIssuer>()
                     cardIssuers.postValue(cardIssuerList)
                 }
             } else {
@@ -101,7 +100,8 @@ class MainActivityViewModel @Inject constructor(
 
             if (response.operationResult) {
                 withContext(Dispatchers.Main) {
-                    val installmentsOptionsList: List<InstallmentOption> = (response.resultObject as List<*>).filterIsInstance<InstallmentOption>()
+                    val installmentsOptionsList =
+                        (response.resultObject as List<*>).filterIsInstance<InstallmentOption>()
                     installmentsOptions.postValue(installmentsOptionsList)
                 }
             } else {
@@ -109,5 +109,4 @@ class MainActivityViewModel @Inject constructor(
             }
         }
     }
-
 }

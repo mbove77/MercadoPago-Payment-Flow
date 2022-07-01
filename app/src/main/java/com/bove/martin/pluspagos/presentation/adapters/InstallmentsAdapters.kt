@@ -8,7 +8,8 @@ import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.databinding.InstallmentItemBinding
 import com.bove.martin.pluspagos.domain.model.PayerCost
 
-class InstallmentsAdapters(private var installmentsList: List<PayerCost>, private val listener: OnItemClickListener) : RecyclerView.Adapter<InstallmentsAdapters.ViewHolder>()  {
+class InstallmentsAdapters(private var installmentsList: List<PayerCost>, private val listener: OnItemClickListener) :
+    RecyclerView.Adapter<InstallmentsAdapters.ViewHolder>() {
 
     override fun getItemCount(): Int = installmentsList.size
 
@@ -18,7 +19,10 @@ class InstallmentsAdapters(private var installmentsList: List<PayerCost>, privat
                 LayoutInflater.from(parent.context),
                 R.layout.installment_item,
                 parent,
-                false), listener)
+                false
+            ),
+            listener
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -33,11 +37,11 @@ class InstallmentsAdapters(private var installmentsList: List<PayerCost>, privat
         this.installmentsList = paymentList
         notifyDataSetChanged()
     }
-
-    inner class ViewHolder(val installmentItemBinding: InstallmentItemBinding, listener: OnItemClickListener) : RecyclerView.ViewHolder(installmentItemBinding.root)
+    @Suppress("UNUSED_PARAMETER")
+    inner class ViewHolder(val installmentItemBinding: InstallmentItemBinding, listener: OnItemClickListener) :
+        RecyclerView.ViewHolder(installmentItemBinding.root)
 
     interface OnItemClickListener {
         fun onItemClick(payerCost: PayerCost, posicion: Int)
     }
 }
-

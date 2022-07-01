@@ -25,7 +25,9 @@ class GetPaymentsMethodsUseCase @Inject constructor(private val mercadoPagoRepos
                     .collect(Collectors.toList())
 
             val filterList = activeItems.stream()
-                .filter { payment: Payment -> (userAmount >= payment.minAllowedAmount && userAmount <= payment.maxAllowedAmount) }
+                .filter { payment: Payment ->
+                    (userAmount >= payment.minAllowedAmount && userAmount <= payment.maxAllowedAmount)
+                }
                 .collect(Collectors.toList())
 
             OperationResult(true, null, filterList)

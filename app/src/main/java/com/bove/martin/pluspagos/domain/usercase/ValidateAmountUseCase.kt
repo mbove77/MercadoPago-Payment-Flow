@@ -14,12 +14,16 @@ class ValidateAmountUseCase @Inject constructor() {
     operator fun invoke(amount: Double?): OperationResult {
         return if (amount == null) {
             OperationResult(false, UiText.StringResource(R.string.amount_empty_validation), null)
-        } else if(amount > AppConstants.MAX_ALLOW_ENTRY) {
+        } else if (amount > AppConstants.MAX_ALLOW_ENTRY) {
             OperationResult(
                 false,
-                UiText.StringResource(R.string.amount_max_amount_validation, AppConstants.MAX_ALLOW_ENTRY.toString()), null)
+                UiText.StringResource(
+                    R.string.amount_max_amount_validation, AppConstants.MAX_ALLOW_ENTRY.toString()
+                ),
+                null
+            )
         } else {
-            OperationResult(true,null, null)
+            OperationResult(true, null, null)
         }
     }
 }

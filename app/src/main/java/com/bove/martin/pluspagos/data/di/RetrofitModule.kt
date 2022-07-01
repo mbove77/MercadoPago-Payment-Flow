@@ -18,7 +18,7 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit():Retrofit {
+    fun provideRetrofit(): Retrofit {
         val okHttpClientBuilder = OkHttpClient.Builder()
         okHttpClientBuilder.addInterceptor(AuthInterceptor())
 
@@ -34,5 +34,4 @@ object RetrofitModule {
     fun provideMercadoPagoApi(retrofit: Retrofit): MercadoPagoServices {
         return retrofit.create(MercadoPagoServices::class.java)
     }
-
 }
