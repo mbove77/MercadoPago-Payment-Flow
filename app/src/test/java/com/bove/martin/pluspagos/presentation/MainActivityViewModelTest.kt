@@ -1,101 +1,49 @@
 package com.bove.martin.pluspagos.presentation
 
-import com.bove.martin.pluspagos.data.MercadoPagoRepository
-import kotlinx.coroutines.*
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.bove.martin.pluspagos.domain.usercase.GetCardIssuersUseCase
+import com.bove.martin.pluspagos.domain.usercase.GetInstallmentsUseCase
+import com.bove.martin.pluspagos.domain.usercase.GetPaymentsMethodsUseCase
+import com.bove.martin.pluspagos.domain.usercase.ValidateAmountUseCase
+import io.mockk.MockKAnnotations
+import io.mockk.impl.annotations.RelaxedMockK
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
-import org.junit.Test
+import org.junit.Rule
 
-class MainActivityViewModelTest  {
-    private lateinit var viewModel: MainActivityViewModel
-    private lateinit var mpRepository: MercadoPagoRepository
+@ExperimentalCoroutinesApi
+class MainActivityViewModelTest {
+    private lateinit var mainActivityViewModel: MainActivityViewModel
+    @RelaxedMockK
+    private lateinit var validateAmountUseCase: ValidateAmountUseCase
+    @RelaxedMockK
+    private lateinit var getPaymentsMethodsUseCase: GetPaymentsMethodsUseCase
+    @RelaxedMockK
+    private lateinit var getCardIssuersUseCase: GetCardIssuersUseCase
+    @RelaxedMockK
+    private lateinit var getInstallmentsUseCase: GetInstallmentsUseCase
 
-    @ObsoleteCoroutinesApi
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+    @get:Rule
+    var rule: InstantTaskExecutorRule = InstantTaskExecutorRule()
 
-
-    @ExperimentalCoroutinesApi
-    @ObsoleteCoroutinesApi
     @Before
     fun setUp() {
-//        Dispatchers.setMain(mainThreadSurrogate)
-//        mpRepository = mock()
-//        runBlocking {
-//            whenever(mpRepository.getPaymentsMethods())
-//        }
-//        viewModel = MainActivityViewModel(mpRepository)
+        MockKAnnotations.init(this)
+        mainActivityViewModel = MainActivityViewModel(
+            validateAmountUseCase,
+            getPaymentsMethodsUseCase,
+            getCardIssuersUseCase,
+            getInstallmentsUseCase
+        )
+        Dispatchers.setMain(Dispatchers.Unconfined)
     }
 
-    @ObsoleteCoroutinesApi
-    @ExperimentalCoroutinesApi
     @After
-    fun tearDown() {
-        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
-        mainThreadSurrogate.close()
-    }
-
-    @Test
-    fun getPaymentsMethods() = runBlocking {
-//        val response = viewModel.getPaymentsMethods()
-//        delay(12)
-//        verify(viewModel.getPaymentsMethods())
-    }
-
-    @Test
-    fun getCardIssuers() {
-    }
-
-    @Test
-    fun getInstallmentsOptions() {
-    }
-
-    @Test
-    fun getUserAmount() {
-    }
-
-    @Test
-    fun setUserAmount() {
-    }
-
-    @Test
-    fun getUserPaymentSelection() {
-    }
-
-    @Test
-    fun setUserPaymentSelection() {
-    }
-
-    @Test
-    fun getUserCardIssuer() {
-    }
-
-    @Test
-    fun setUserCardIssuer() {
-    }
-
-    @Test
-    fun getUserInstallmentSelection() {
-    }
-
-    @Test
-    fun setUserInstallmentSelection() {
-    }
-
-    @Test
-    fun clearUserSelections() {
-    }
-
-    @Test
-    fun getPaimentsMethods() {
-    }
-
-    @Test
-    fun testGetCardIssuers() {
-    }
-
-    @Test
-    fun getInstallments() {
+    fun onAfter() {
+        Dispatchers.resetMain()
     }
 }
