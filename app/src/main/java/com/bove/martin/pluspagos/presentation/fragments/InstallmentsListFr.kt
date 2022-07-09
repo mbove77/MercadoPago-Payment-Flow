@@ -35,7 +35,7 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userAmount = viewModel.userAmount.value!!.toFloat()
+        val userAmount = viewModel.userAmount.value!!
         val paymentMethodId = viewModel.userPaymentSelection.value!!.id
         val cardIssuerId = viewModel.userBankSelection.value?.id
 

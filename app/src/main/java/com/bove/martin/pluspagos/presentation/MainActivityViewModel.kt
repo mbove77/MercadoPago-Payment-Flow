@@ -93,7 +93,7 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
-    fun getInstallments(id: String, amount: Float, issuerId: String?) {
+    fun getInstallments(id: String, amount: Double, issuerId: String?) {
         viewModelScope.launch {
 
             val response = getInstallmentsUseCase(id, amount, issuerId)
