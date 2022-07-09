@@ -12,13 +12,13 @@ import javax.inject.Inject
  * E-mail: mbove77@gmail.com
  */
 class GetInstallmentsUseCase @Inject constructor(private val mercadoPagoRepository: MercadoPagoRepository) {
-    suspend operator fun invoke(id: String, amount: Float, issuerId: String?): OperationResult {
+    suspend operator fun invoke(id: String, amount: Double, issuerId: String?): OperationResult {
 
         return if (id.isNotEmpty() && (amount > 0 && amount <= AppConstants.MAX_ALLOW_ENTRY)) {
             val response = if (issuerId.isNullOrEmpty()) {
-                mercadoPagoRepository.getInstallmentsOptions(id, amount)
+                mercadoPagoRepository.getInstallmentsOptions(id, amount.toFloat())
             } else {
-                mercadoPagoRepository.getInstallmentsOptions(id, amount, issuerId)
+                mercadoPagoRepository.getInstallmentsOptions(id, amount.toFloat(), issuerId)
             }
 
             if (response.isSuccessful) {

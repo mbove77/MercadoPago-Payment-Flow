@@ -17,7 +17,9 @@ class GetCardIssuersUseCase @Inject constructor(private val mercadoPagoRepositor
         return if (response.isSuccessful) {
             OperationResult(true, null, response.body())
         } else {
-            OperationResult(false, UiText.StringResource(R.string.card_issuers_error), null)
+            OperationResult(
+                false, UiText.StringResource(R.string.card_issuers_error), null
+            )
         }
     }
 }

@@ -24,13 +24,12 @@ class GetPaymentsMethodsUseCase @Inject constructor(private val mercadoPagoRepos
                 tempList.stream().filter { payment -> payment.status == "active" }
                     .collect(Collectors.toList())
 
-            val filterList = activeItems.stream()
+            val inRageItems = activeItems.stream()
                 .filter { payment: Payment ->
                     (userAmount >= payment.minAllowedAmount && userAmount <= payment.maxAllowedAmount)
-                }
-                .collect(Collectors.toList())
+                }.collect(Collectors.toList())
 
-            OperationResult(true, null, filterList)
+            OperationResult(true, null, inRageItems)
         } else {
             OperationResult(false, UiText.StringResource(R.string.payments_methods_error), null)
         }
