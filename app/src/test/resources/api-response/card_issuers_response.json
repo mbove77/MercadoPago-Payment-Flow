@@ -1,0 +1,353 @@
+[
+  {
+    "id": "288",
+    "name": "Tarjeta Shopping",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "5",
+    "name": "Naranja",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "1005",
+    "name": "Provencred",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "272",
+    "name": "Banco Comafi",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "294",
+    "name": "Banco Hipotecario",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "1026",
+    "name": "Banco Industrial",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "282",
+    "name": "Banco Nacion",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "303",
+    "name": "Banco Patagonia",
+    "secure_thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/7a784590-579b-11e8-9526-7311e82cafd4-m@2x.png",
+    "thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/7a784590-579b-11e8-9526-7311e82cafd4-m@2x.png",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "326",
+    "name": "HSBC",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "338",
+    "name": "ICBC",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "297",
+    "name": "Macro",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "279",
+    "name": "Banco Galicia",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "287",
+    "name": "Banco Santa Cruz",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "296",
+    "name": "Itau",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "331",
+    "name": "Nuevo Banco de Entre Rios",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "333",
+    "name": "Nuevo Banco de Santa Fe",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "1016",
+    "name": "Banco Ciudad",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "286",
+    "name": "Banco San Juan",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "313",
+    "name": "Banco Supervielle",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "310",
+    "name": "Banco Santander",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "316",
+    "name": "BBVA",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "1044",
+    "name": "Banco Provincia",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "1049",
+    "name": "Banco de La Pampa",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "2033",
+    "name": "Banco Bica",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "2040",
+    "name": "Fueguina",
+    "secure_thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/3ddfc980-1c27-11ea-a523-6bfcaf159b9c-l@2x.png",
+    "thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/3ddfc980-1c27-11ea-a523-6bfcaf159b9c-l@2x.png",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "2043",
+    "name": "Macro - Selecta",
+    "secure_thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/297.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/297.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "10002",
+    "name": "Banco Columbia",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "10004",
+    "name": "Banco Municipal",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "10005",
+    "name": "Banco Saenz",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "12355",
+    "name": "Efectivo Si",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "12366",
+    "name": "Comafi Chicas",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "12385",
+    "name": "Banco Coinag",
+    "secure_thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/8300f480-afda-11e9-826d-3b99bc547094-l@2x.png",
+    "thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/8300f480-afda-11e9-826d-3b99bc547094-l@2x.png",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "12432",
+    "name": "HSBC Access Now",
+    "secure_thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/d41f80d0-af11-11e9-b872-f9cdde9240f0-l@2x.png",
+    "thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/d41f80d0-af11-11e9-b872-f9cdde9240f0-l@2x.png",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "12448",
+    "name": "Visa ",
+    "secure_thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/d589be70-eb86-11e9-b9a8-097ac027487d-xl@2x.png",
+    "thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/d589be70-eb86-11e9-b9a8-097ac027487d-xl@2x.png",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "12503",
+    "name": "Banco de la Provincia de Neuquen",
+    "secure_thumbnail": "https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif",
+    "thumbnail": "http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "12509",
+    "name": "HSBC Power Card",
+    "secure_thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/6e4d1e10-1230-11eb-bbd0-1f079a571ae4-xl@2x.png",
+    "thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/6e4d1e10-1230-11eb-bbd0-1f079a571ae4-xl@2x.png",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "12611",
+    "name": "Lemon",
+    "secure_thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/d589be70-eb86-11e9-b9a8-097ac027487d-xl@2x.png",
+    "thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/d589be70-eb86-11e9-b9a8-097ac027487d-xl@2x.png",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "12613",
+    "name": "Patagonia Singular",
+    "secure_thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/74cea6e0-90c5-11ec-b79a-0b2d587b2ffd-xl.svg",
+    "thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/74cea6e0-90c5-11ec-b79a-0b2d587b2ffd-xl.svg",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  },
+  {
+    "id": "1",
+    "name": "Otro",
+    "secure_thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/d589be70-eb86-11e9-b9a8-097ac027487d-xl@2x.png",
+    "thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/d589be70-eb86-11e9-b9a8-097ac027487d-xl@2x.png",
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "status": "active"
+  }
+]
