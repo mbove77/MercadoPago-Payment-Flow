@@ -8,8 +8,7 @@ import okhttp3.mockwebserver.MockWebServer
 import okio.buffer
 import okio.source
 import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Retrofit
@@ -50,12 +49,14 @@ class MercadoPagoRepositoryTest {
     fun `getPaymentsMethods response ok`() = runBlocking {
         // Given
         mockWebServer.enqueueResponse("payment_response.json", 200)
+        val expectedNumbersOfResults = 21
 
         // When
         val result = mercadoPagoRepository.getPaymentsMethods()
 
         // Then
         assertTrue(result.isSuccessful)
+        assertEquals(expectedNumbersOfResults, result.body()!!.size)
     }
 
     @Test
@@ -74,12 +75,14 @@ class MercadoPagoRepositoryTest {
     fun `getCardIssuers response ok`() = runBlocking {
         // Given
         mockWebServer.enqueueResponse("card_issuers_response.json", 200)
+        val expectedNumbersOfResults = 39
 
         // When
         val result = mercadoPagoRepository.getCardIssuers("visa")
 
         // Then
         assertTrue(result.isSuccessful)
+        assertEquals(expectedNumbersOfResults, result.body()!!.size)
     }
 
     @Test
@@ -98,12 +101,14 @@ class MercadoPagoRepositoryTest {
     fun `getInstallmentsOptions sin issureId response ok`() = runBlocking {
         // Given
         mockWebServer.enqueueResponse("installments_no_issuer_response.json", 200)
+        val expectedNumbersOfResults = 1
 
         // When
         val result = mercadoPagoRepository.getInstallmentsOptions("visa", validAmount.toFloat())
 
         // Then
         assertTrue(result.isSuccessful)
+        assertEquals(expectedNumbersOfResults, result.body()!!.size)
     }
 
     @Test
@@ -122,12 +127,14 @@ class MercadoPagoRepositoryTest {
     fun `getInstallmentsOptions con issureId response ok`() = runBlocking {
         // Given
         mockWebServer.enqueueResponse("installments_response.json", 200)
+        val expectedNumbersOfResults = 1
 
         // When
         val result = mercadoPagoRepository.getInstallmentsOptions("visa", validAmount.toFloat(), "297")
 
         // Then
         assertTrue(result.isSuccessful)
+        assertEquals(expectedNumbersOfResults, result.body()!!.size)
     }
 
     @Test
