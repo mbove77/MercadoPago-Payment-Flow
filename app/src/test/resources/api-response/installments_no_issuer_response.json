@@ -1,0 +1,71 @@
+[
+  {
+    "payment_method_id": "naranja",
+    "payment_type_id": "credit_card",
+    "issuer": {
+      "id": "5",
+      "name": "Naranja",
+      "secure_thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/770edaa0-5dc7-11ec-a13d-73e40a9e9500-xl@2x.png",
+      "thumbnail": "https://http2.mlstatic.com/storage/logos-api-admin/770edaa0-5dc7-11ec-a13d-73e40a9e9500-xl@2x.png"
+    },
+    "processing_mode": "aggregator",
+    "merchant_account_id": null,
+    "payer_costs": [
+      {
+        "installments": 1,
+        "installment_rate": 0,
+        "discount_rate": 0,
+        "reimbursement_rate": null,
+        "labels": [
+          "CFT_0,00%|TEA_0,00%"
+        ],
+        "installment_rate_collector": [
+          "MERCADOPAGO"
+        ],
+        "min_allowed_amount": 0,
+        "max_allowed_amount": 1500000,
+        "recommended_message": "1 cuota de $ 1.235,00 ($ 1.235,00)",
+        "installment_amount": 1235,
+        "total_amount": 1235,
+        "payment_method_option_id": "1.AQokODllZjQyNjktYjAzMy00OWU1LWJhMWQtNDE0NjQyNTM3MzY4EJaFuevHLg"
+      },
+      {
+        "installments": 3,
+        "installment_rate": 19.71,
+        "discount_rate": 0,
+        "reimbursement_rate": null,
+        "labels": [
+          "CFT_199,26%|TEA_150,22%"
+        ],
+        "installment_rate_collector": [
+          "MERCADOPAGO"
+        ],
+        "min_allowed_amount": 2,
+        "max_allowed_amount": 1500000,
+        "recommended_message": "3 cuotas de $ 492,81 ($ 1.478,42)",
+        "installment_amount": 492.81,
+        "total_amount": 1478.42,
+        "payment_method_option_id": "1.AQokODllZjQyNjktYjAzMy00OWU1LWJhMWQtNDE0NjQyNTM3MzY4EJaFuevHLg"
+      },
+      {
+        "installments": 6,
+        "installment_rate": 35.68,
+        "discount_rate": 0,
+        "reimbursement_rate": null,
+        "labels": [
+          "CFT_196,59%|TEA_149,70%"
+        ],
+        "installment_rate_collector": [
+          "MERCADOPAGO"
+        ],
+        "min_allowed_amount": 1,
+        "max_allowed_amount": 1500000,
+        "recommended_message": "6 cuotas de $ 279,28 ($ 1.675,65)",
+        "installment_amount": 279.28,
+        "total_amount": 1675.65,
+        "payment_method_option_id": "1.AQokODllZjQyNjktYjAzMy00OWU1LWJhMWQtNDE0NjQyNTM3MzY4EJaFuevHLg"
+      }
+    ],
+    "agreements": null
+  }
+]

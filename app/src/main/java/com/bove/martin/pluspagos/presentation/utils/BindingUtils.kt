@@ -24,21 +24,21 @@ fun setVisibility(view: View, value: Boolean) {
 fun setAccreditationTime(view: View, value: Int?) {
     if (value != null) {
         if (value == 0) {
-           (view as TextView).text = view.context.getString(R.string.time_instant)
+            (view as TextView).text = view.context.getString(R.string.time_instant)
         } else {
-           if (value >= 60) {
-               (view as TextView).text = view.context.getString(R.string.time_hours, (value/60).toString())
-           } else {
-               (view as TextView).text = view.context.getString(R.string.time_minutes, value.toString())
-           }
-       }
-   }
+            if (value >= 60) {
+                (view as TextView).text = view.context.getString(R.string.time_hours, (value / 60).toString())
+            } else {
+                (view as TextView).text = view.context.getString(R.string.time_minutes, value.toString())
+            }
+        }
+    }
 }
 
 @BindingAdapter("amount")
 fun setAmount(view: View, value: Double?) {
     if (value != null) {
-        (view as TextView).text = "$ ${value.toInt().toString()}"
+        (view as TextView).text = "$ ${value.toInt()}"
     } else {
         (view as TextView).text = ""
     }

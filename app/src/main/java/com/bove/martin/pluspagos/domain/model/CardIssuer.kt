@@ -1,6 +1,5 @@
 package com.bove.martin.pluspagos.domain.model
 
-
 import com.google.gson.annotations.SerializedName
 
 data class CardIssuer(

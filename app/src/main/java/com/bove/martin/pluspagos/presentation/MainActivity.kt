@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUi() {
-        //TODO add support to dark theme
+        // TODO add support to dark theme
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         setupActionBarWithNavController(findNavController(R.id.mainHostFragment))
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     fun showBottomSheet(show: Boolean) {
         val animate: TranslateAnimation
-        if(show) {
+        if (show) {
             val px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90f, resources.displayMetrics).roundToInt()
             behavior.peekHeight = px
             animate = TranslateAnimation(0f, 0f, bottomSheet.height.toFloat(), 0f)

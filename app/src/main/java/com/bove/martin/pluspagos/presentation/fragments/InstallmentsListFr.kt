@@ -24,7 +24,8 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
     private var payerCostList: List<PayerCost> = ArrayList()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentInstallmentsListBinding.inflate(inflater, container, false)
@@ -34,7 +35,7 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userAmount = viewModel.userAmount.value!!.toFloat()
+        val userAmount = viewModel.userAmount.value!!
         val paymentMethodId = viewModel.userPaymentSelection.value!!.id
         val cardIssuerId = viewModel.userBankSelection.value?.id
 
@@ -62,12 +63,10 @@ class InstallmentsListFr : Fragment(), InstallmentsAdapters.OnItemClickListener 
                 true
             )
         }
-
     }
 
     override fun onItemClick(payerCost: PayerCost, posicion: Int) {
         viewModel.setUserInstallmentSelection(payerCost)
         binding.root.findNavController().navigate(R.id.action_installmentsListFr_to_successFr)
     }
-
 }

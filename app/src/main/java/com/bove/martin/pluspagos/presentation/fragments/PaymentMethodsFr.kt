@@ -16,7 +16,6 @@ import com.bove.martin.pluspagos.presentation.MainActivity
 import com.bove.martin.pluspagos.presentation.MainActivityViewModel
 import com.bove.martin.pluspagos.presentation.adapters.PaymentsAdapters
 
-
 class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
     private val viewModel: MainActivityViewModel by activityViewModels()
     private lateinit var binding: FragmentPaymentMethodsBinding
@@ -34,7 +33,6 @@ class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         if (paymentList.isEmpty()) {
             viewModel.getPaymentsMethods()
@@ -63,5 +61,4 @@ class PaymentMethodsFr : Fragment(), PaymentsAdapters.OnItemClickListener {
         viewModel.setUserPaymentSelection(payment)
         binding.root.findNavController().navigate(R.id.action_paymentMethodsFr_to_bankListFr)
     }
-
 }

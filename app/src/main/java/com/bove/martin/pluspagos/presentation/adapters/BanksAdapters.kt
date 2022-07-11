@@ -8,7 +8,8 @@ import com.bove.martin.pluspagos.R
 import com.bove.martin.pluspagos.databinding.BankItemBinding
 import com.bove.martin.pluspagos.domain.model.CardIssuer
 
-class BanksAdapters(private var bankList: List<CardIssuer>, private val listener: OnItemClickListener) : RecyclerView.Adapter<BanksAdapters.ViewHolder>()  {
+class BanksAdapters(private var bankList: List<CardIssuer>, private val listener: OnItemClickListener) :
+    RecyclerView.Adapter<BanksAdapters.ViewHolder>() {
 
     override fun getItemCount(): Int = bankList.size
 
@@ -18,7 +19,10 @@ class BanksAdapters(private var bankList: List<CardIssuer>, private val listener
                 LayoutInflater.from(parent.context),
                 R.layout.bank_item,
                 parent,
-                false), listener)
+                false
+            ),
+            listener
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -34,10 +38,11 @@ class BanksAdapters(private var bankList: List<CardIssuer>, private val listener
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(val bankItemBinding: BankItemBinding, listener: OnItemClickListener) : RecyclerView.ViewHolder(bankItemBinding.root)
+    @Suppress("UNUSED_PARAMETER")
+    inner class ViewHolder(val bankItemBinding: BankItemBinding, listener: OnItemClickListener) :
+        RecyclerView.ViewHolder(bankItemBinding.root)
 
     interface OnItemClickListener {
         fun onItemClick(cardIssuer: CardIssuer, posicion: Int)
     }
 }
-
