@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit
 
 class MercadoPagoRepositoryTest {
     private val mockWebServer = MockWebServer()
-    private lateinit var mercadoPagoRepository:MercadoPagoRepository
+    private lateinit var mercadoPagoRepository: MercadoPagoRepository
     private val validAmount = 15400.0
 
     @Before
