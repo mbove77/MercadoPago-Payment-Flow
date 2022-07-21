@@ -31,6 +31,17 @@ class ValidateAmountUseCaseTest {
     }
 
     @Test
+    fun `when amount is zero return error`() {
+        // Given
+
+        // When
+        val result = validateAmountUseCase(0.0)
+
+        // Then
+        assertFalse(result.operationResult)
+    }
+
+    @Test
     fun `when amount is invalid return error`() {
         // Given
 

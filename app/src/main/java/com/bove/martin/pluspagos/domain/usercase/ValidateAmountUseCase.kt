@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 class ValidateAmountUseCase @Inject constructor() {
     operator fun invoke(amount: Double?): OperationResult {
-        return if (amount == null) {
+        return if (amount == null || amount == 0.0) {
             OperationResult(false, UiText.StringResource(R.string.amount_empty_validation), null)
         } else if (amount > AppConstants.MAX_ALLOW_ENTRY) {
             OperationResult(

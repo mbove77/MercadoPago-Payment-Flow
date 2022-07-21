@@ -37,11 +37,13 @@ class AmountFragment : Fragment() {
         }
 
         viewModel.amountIsValid.observe(viewLifecycleOwner) {
-            if (it.operationResult) {
-                viewModel.setUserAmount(binding.edAmount.getNumericValue()!!)
-                findNavController().navigate(R.id.action_amounFragment_to_paymentMethodsFr)
-            } else {
-                binding.edAmount.error = it.resultMensaje?.asString((activity as MainActivity).applicationContext)
+            if (it != null) {
+                if (it.operationResult) {
+                    viewModel.setUserAmount(binding.edAmount.getNumericValue()!!)
+                    findNavController().navigate(R.id.action_amounFragment_to_paymentMethodsFr)
+                } else {
+                    binding.edAmount.error = it.resultMensaje?.asString((activity as MainActivity).applicationContext)
+                }
             }
         }
     }

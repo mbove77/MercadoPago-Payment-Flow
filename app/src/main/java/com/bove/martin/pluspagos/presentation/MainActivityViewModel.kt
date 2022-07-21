@@ -3,7 +3,12 @@ package com.bove.martin.pluspagos.presentation
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bove.martin.pluspagos.domain.model.*
+import com.bove.martin.pluspagos.data.di.DispatchersModule.MainDispatcher
+import com.bove.martin.pluspagos.domain.model.CardIssuer
+import com.bove.martin.pluspagos.domain.model.InstallmentOption
+import com.bove.martin.pluspagos.domain.model.OperationResult
+import com.bove.martin.pluspagos.domain.model.PayerCost
+import com.bove.martin.pluspagos.domain.model.Payment
 import com.bove.martin.pluspagos.domain.usercase.GetCardIssuersUseCase
 import com.bove.martin.pluspagos.domain.usercase.GetInstallmentsUseCase
 import com.bove.martin.pluspagos.domain.usercase.GetPaymentsMethodsUseCase
@@ -11,7 +16,7 @@ import com.bove.martin.pluspagos.domain.usercase.ValidateAmountUseCase
 import com.bove.martin.pluspagos.presentation.utils.SingleLiveEvent
 import com.bove.martin.pluspagos.presentation.utils.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -21,7 +26,8 @@ class MainActivityViewModel @Inject constructor(
     private val validateAmountUseCase: ValidateAmountUseCase,
     private val getPaymentsMethodsUseCase: GetPaymentsMethodsUseCase,
     private val getCardIssuersUseCase: GetCardIssuersUseCase,
-    private val getInstallmentsUseCase: GetInstallmentsUseCase
+    private val getInstallmentsUseCase: GetInstallmentsUseCase,
+    @MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     // user selection
@@ -68,7 +74,7 @@ class MainActivityViewModel @Inject constructor(
             val response = getPaymentsMethodsUseCase(userAmount.value)
 
             if (response.operationResult) {
-                withContext(Dispatchers.Main) {
+                withContext(mainDispatcher) {
                     val paymentList: List<Payment> = (response.resultObject as List<*>).filterIsInstance<Payment>()
                     paymentsMethods.postValue(paymentList)
                 }
@@ -83,7 +89,7 @@ class MainActivityViewModel @Inject constructor(
             val response = getCardIssuersUseCase(id)
 
             if (response.operationResult) {
-                withContext(Dispatchers.Main) {
+                withContext(mainDispatcher) {
                     val cardIssuerList = (response.resultObject as List<*>).filterIsInstance<CardIssuer>()
                     cardIssuers.postValue(cardIssuerList)
                 }
@@ -99,7 +105,7 @@ class MainActivityViewModel @Inject constructor(
             val response = getInstallmentsUseCase(id, amount, issuerId)
 
             if (response.operationResult) {
-                withContext(Dispatchers.Main) {
+                withContext(mainDispatcher) {
                     val installmentsOptionsList =
                         (response.resultObject as List<*>).filterIsInstance<InstallmentOption>()
                     installmentsOptions.postValue(installmentsOptionsList)
